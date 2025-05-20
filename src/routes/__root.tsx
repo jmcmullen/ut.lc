@@ -64,7 +64,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <div className="min-h-screen bg-gray-100">
+        <div className="bg-white">
           {children}
           <TanStackRouterDevtools position="bottom-right" />
           <Scripts />

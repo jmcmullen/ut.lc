@@ -17,6 +17,7 @@ export default {
         
         // Neutral
         'gray': 'hsl(0, 0%, 75%)',
+        'light-gray': 'hsl(239deg 29% 95%)',
         'grayish-violet': 'hsl(257, 7%, 63%)',
         'very-dark-blue': 'hsl(255, 11%, 22%)',
         'very-dark-violet': 'hsl(260, 8%, 14%)',
@@ -30,6 +31,13 @@ export default {
       fontWeight: {
         'medium': '500',
         'bold': '700',
+      },
+      backgroundImage: {
+        'working-illustration': "url('/src/assets/images/illustration-working.svg')",
+        'shorten-mobile': "url('/src/assets/images/bg-shorten-mobile.svg')",
+        'shorten-desktop': "url('/src/assets/images/bg-shorten-desktop.svg')",
+        'boost-mobile': "url('/src/assets/images/bg-boost-mobile.svg')",
+        'boost-desktop': "url('/src/assets/images/bg-boost-desktop.svg')",
       },
     },
   },
