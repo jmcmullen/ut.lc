@@ -36,7 +36,11 @@ export const Header: React.FC = () => {
         {isMenuOpen && (
           <div className="absolute top-20 left-6 right-6 z-50 md:hidden">
             <div className="bg-dark-violet rounded-lg p-6 flex flex-col items-center">
-              <nav className="w-full mb-6">
+              <nav
+                className="w-full mb-6"
+                role="navigation"
+                data-testid="mobile-nav"
+              >
                 <ul className="flex flex-col items-center space-y-6">
                   <li>
                     <Link to="/" className="text-white font-bold">
@@ -68,8 +72,11 @@ export const Header: React.FC = () => {
           </div>
         )}
 
-        <div className="hidden md:flex items-center justify-between w-full ml-12">
-          <nav>
+        <div
+          className="hidden md:flex items-center justify-between w-full ml-12"
+          data-testid="desktop-nav"
+        >
+          <nav role="navigation">
             <ul className="flex space-x-8">
               <li>
                 <Link
