@@ -9,11 +9,13 @@
     "start": "vinxi start"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.2.6",
     "@tanstack/react-query": "^5.76.1",
     "@tanstack/react-query-devtools": "^5.76.1",
     "@tanstack/react-router": "^1.120.5",
     "@tanstack/react-router-devtools": "^1.120.6",
     "@tanstack/react-start": "^1.120.5",
+    "lucide-react": "^0.511.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
