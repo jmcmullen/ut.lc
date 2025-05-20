@@ -17,9 +17,6 @@ describe("Hero Component", () => {
 
     expect(screen.getByText(/get started/i)).toBeInTheDocument();
 
-    const heroImageContainer = document.querySelector(
-      ".bg-working-illustration"
-    );
-    expect(heroImageContainer).toBeInTheDocument();
+    expect(screen.getByAltText("Person working")).toBeInTheDocument();
   });
 });

@@ -14,9 +14,9 @@ function Home() {
   return (
     <div>
       <Header />
-      <main className="mx-auto pt-4">
+      <main className="mx-auto">
         <Hero />
-        <div className="flex justify-center px-6">
+        <div className="flex justify-center px-6 max-w-7xl mx-auto">
           <Shorten />
         </div>
         <Features />

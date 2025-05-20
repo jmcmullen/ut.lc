@@ -44,10 +44,13 @@ const social = [
 export const Footer: React.FC = () => {
   return (
     <footer className="px-6 py-16 bg-very-dark-violet" role="contentinfo">
-      <div className="mx-auto flex flex-col gap-y-8 text-white items-center text-center">
+      <div className="mx-auto max-w-7xl px-6 w-full flex flex-col md:flex-row md:justify-between gap-y-8 text-white items-center md:items-start text-center">
         <Logo />
         {sections.map((section) => (
-          <div key={section.title} className="flex flex-col gap-y-4">
+          <div
+            key={section.title}
+            className="flex flex-col md:items-start gap-y-4"
+          >
             <p className="font-bold">{section.title}</p>
             {section.links.map((link) => (
               <Link
@@ -60,7 +63,7 @@ export const Footer: React.FC = () => {
             ))}
           </div>
         ))}
-        <div className="flex items-center gap-x-6 mt-6">
+        <div className="flex items-center gap-x-6 mt-6 md:mt-0">
           {social.map((social) => (
             <Link
               key={social.title}
