@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="py-6 px-6 sm:px-8 md:px-24">
+    <header className="py-6 px-6 md:max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="text-2xl font-bold text-very-dark-violet">
