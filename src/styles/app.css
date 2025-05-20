@@ -1,19 +1,26 @@
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/700.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    color-scheme: light dark;
+    font-family: 'Poppins', sans-serif;
   }
 
   * {
-    @apply border-gray-200 dark:border-gray-800;
+    @apply border-gray;
   }
 
   html,
   body {
-    @apply text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-200;
+    @apply text-very-dark-violet bg-white text-base font-medium;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
   }
 
   .using-mouse * {
