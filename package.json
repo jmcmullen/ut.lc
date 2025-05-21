@@ -49,6 +49,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "autoprefixer": "^10.4.20",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-react-hooks": "6.0.0-rc.1",
     "identity-obj-proxy": "^3.0.0",
