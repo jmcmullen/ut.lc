@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Boost } from "~/components/ui/Boost";
+import { Features } from "~/components/ui/Features";
+import { Footer } from "~/components/ui/Footer";
 import { Header } from "~/components/ui/Header";
 import { Hero } from "~/components/ui/Hero";
 import { Shorten } from "~/components/ui/Shorten";
-import { Features } from "~/components/ui/Features";
-import { Boost } from "~/components/ui/Boost";
-import { Footer } from "~/components/ui/Footer";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -16,7 +16,7 @@ function Home() {
       <Header />
       <main className="mx-auto">
         <Hero />
-        <div className="flex justify-center px-6 max-w-7xl mx-auto">
+        <div className="mx-auto flex max-w-7xl justify-center px-6">
           <Shorten />
         </div>
         <Features />

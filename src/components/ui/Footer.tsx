@@ -30,9 +30,9 @@ const sections = [
 ];
 
 import facebookIcon from "~/assets/images/icon-facebook.svg";
-import twitterIcon from "~/assets/images/icon-twitter.svg";
-import pinterestIcon from "~/assets/images/icon-pinterest.svg";
 import instagramIcon from "~/assets/images/icon-instagram.svg";
+import pinterestIcon from "~/assets/images/icon-pinterest.svg";
+import twitterIcon from "~/assets/images/icon-twitter.svg";
 
 const social = [
   { title: "Facebook", to: "#", icon: facebookIcon },
@@ -43,32 +43,29 @@ const social = [
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="px-6 py-16 bg-very-dark-violet" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-6 w-full flex flex-col md:flex-row md:justify-between gap-y-8 text-white items-center md:items-start text-center">
+    <footer className="bg-very-dark-violet px-6 py-16" role="contentinfo">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-y-8 px-6 text-center text-white md:flex-row md:items-start md:justify-between">
         <Logo />
         {sections.map((section) => (
-          <div
-            key={section.title}
-            className="flex flex-col md:items-start gap-y-4"
-          >
+          <div key={section.title} className="flex flex-col gap-y-4 md:items-start">
             <p className="font-bold">{section.title}</p>
             {section.links.map((link) => (
               <Link
                 key={link.title}
                 to={link.to}
-                className="text-grayish-violet hover:text-cyan transition-colors"
+                className="text-grayish-violet transition-colors hover:text-cyan"
               >
                 {link.title}
               </Link>
             ))}
           </div>
         ))}
-        <div className="flex items-center gap-x-6 mt-6 md:mt-0">
+        <div className="mt-6 flex items-center gap-x-6 md:mt-0">
           {social.map((social) => (
             <Link
               key={social.title}
               to={social.to}
-              className="text-white hover:text-cyan transition-colors"
+              className="text-white transition-colors hover:text-cyan"
               data-testid="social-link"
             >
               <img src={social.icon} alt={`${social.title} icon`} />
