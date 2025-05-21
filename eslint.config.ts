@@ -1,6 +1,5 @@
 import react from "@eslint-react/eslint-plugin";
 import js from "@eslint/js";
-import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
 import eslintConfigPrettier from "eslint-config-prettier";
 import * as reactHooks from "eslint-plugin-react-hooks";
@@ -20,7 +19,6 @@ export default tseslint.config({
     js.configs.recommended,
     ...tseslint.configs.recommended,
     eslintConfigPrettier,
-    ...pluginQuery.configs["flat/recommended"],
     ...pluginRouter.configs["flat/recommended"],
     reactHooks.configs.recommended,
     react.configs["recommended-type-checked"],
