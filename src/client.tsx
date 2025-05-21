@@ -1,9 +1,9 @@
 /// <reference types="vinxi/types/client" />
-import { hydrateRoot } from "react-dom/client";
-import { StartClient } from "@tanstack/react-start";
-import { createRouter } from "./router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { StartClient } from "@tanstack/react-start";
+import { hydrateRoot } from "react-dom/client";
+import { createRouter } from "./router";
 
 const router = createRouter();
 const queryClient = new QueryClient({

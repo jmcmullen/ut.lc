@@ -40,8 +40,7 @@ export default {
         bold: "700",
       },
       backgroundImage: {
-        "working-illustration":
-          "url('/src/assets/images/illustration-working.svg')",
+        "working-illustration": "url('/src/assets/images/illustration-working.svg')",
         "shorten-mobile": "url('/src/assets/images/bg-shorten-mobile.svg')",
         "shorten-desktop": "url('/src/assets/images/bg-shorten-desktop.svg')",
         "boost-mobile": "url('/src/assets/images/bg-boost-mobile.svg')",

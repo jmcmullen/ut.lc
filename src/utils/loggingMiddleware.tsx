@@ -19,8 +19,7 @@ const preLogMiddleware = createMiddleware()
     return ctx.next({
       sendContext: {
         serverTime,
-        durationToServer:
-          serverTime.getTime() - ctx.context.clientTime.getTime(),
+        durationToServer: serverTime.getTime() - ctx.context.clientTime.getTime(),
       },
     });
   });

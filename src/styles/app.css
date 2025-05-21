@@ -16,7 +16,7 @@
 
   html,
   body {
-    @apply text-very-dark-violet bg-white text-base font-medium;
+    @apply bg-white text-base font-medium text-very-dark-violet;
   }
 
   h1,

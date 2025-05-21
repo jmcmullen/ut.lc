@@ -11,9 +11,7 @@ describe("Hero Component", () => {
       }),
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByText(/build your brand's recognition/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/build your brand's recognition/i)).toBeInTheDocument();
 
     expect(screen.getByText(/get started/i)).toBeInTheDocument();
 
