@@ -1,5 +1,5 @@
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
 import { Header } from "../Header";
 
 jest.mock("@tanstack/react-router", () => ({
@@ -28,8 +28,7 @@ describe("Header Component", () => {
     render(<Header />);
 
     const mobileMenuButton =
-      screen.getByLabelText(/open menu/i) ||
-      screen.getByLabelText(/close menu/i);
+      screen.getByLabelText(/open menu/i) || screen.getByLabelText(/close menu/i);
     expect(mobileMenuButton).toBeInTheDocument();
 
     expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument();
@@ -74,8 +73,7 @@ describe("Header Component", () => {
     rerender(<Header />);
 
     const mobileMenuButton =
-      screen.getByLabelText(/open menu/i) ||
-      screen.getByLabelText(/close menu/i);
+      screen.getByLabelText(/open menu/i) || screen.getByLabelText(/close menu/i);
     expect(mobileMenuButton).toBeInTheDocument();
 
     window.matchMedia = jest.fn().mockImplementation((query) => ({
