@@ -1,6 +1,6 @@
 # URL Shortener App
 
-A URL shortening web application built with TanStack Router and React Query that integrates with the cleanURI API.
+A URL shortening web application built with TanStack Router that integrates with the cleanURI API.
 
 ## Features
 
@@ -34,6 +34,6 @@ pnpm start
 ## Technologies Used
 
 - TanStack Router for routing
-- React Query for data fetching
+- Server actions for data fetching
 - TypeScript for type safety
 - Tailwind CSS for styling
