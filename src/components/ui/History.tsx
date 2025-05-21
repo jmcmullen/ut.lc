@@ -43,7 +43,7 @@ export const History = () => {
           return (
             <div
               key={url.resultUrl}
-              className="animate-fadeIn flex flex-col items-center justify-between gap-x-6 rounded-md bg-white md:flex-row"
+              className="flex animate-fadeIn flex-col items-center justify-between gap-x-6 rounded-md bg-white md:flex-row"
             >
               <div className="flex w-full flex-col justify-between divide-y divide-grayish-violet md:flex-row md:divide-y-0 md:text-lg">
                 <p className="px-4 py-3 md:px-6 md:py-6">{url.originalUrl}</p>
