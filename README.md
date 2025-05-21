@@ -37,3 +37,6 @@ pnpm start
 - Server actions for data fetching
 - TypeScript for type safety
 - Tailwind CSS for styling
+- CI/CD using GitHub Actions
+- Eslint and Prettier for code quality
+- Jest for unit testing
