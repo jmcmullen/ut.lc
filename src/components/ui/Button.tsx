@@ -12,7 +12,7 @@ const buttonVariants = cva(
       },
       size: {
         sm: "py-2 px-4 text-sm",
-        md: "py-2 px-6 text-base md:py-3 md:px-8 md:text-lg",
+        md: "py-2 px-6 text-base",
         lg: "py-3 px-8 text-lg",
       },
       fullWidth: {

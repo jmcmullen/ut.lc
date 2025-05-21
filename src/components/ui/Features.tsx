@@ -32,7 +32,7 @@ export const Features: React.FC = () => {
   const connectorVariants = ["", "md:top-[120px]", "md:top-[70px]"];
 
   return (
-    <section className="-mt-20 bg-light-gray pb-28 pt-44">
+    <section className="-mt-24 bg-light-gray pb-28 pt-44">
       <div className="mx-auto flex max-w-7xl flex-col gap-y-8 px-6">
         <div className="text-center">
           <h2 className="mb-6 text-2xl font-bold">Advanced Statistics</h2>
