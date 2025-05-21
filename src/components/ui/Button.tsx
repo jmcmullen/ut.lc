@@ -30,7 +30,7 @@ const buttonVariants = cva(
       fullWidth: false,
       rounded: true,
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -48,9 +48,10 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
+      type="button"
       className={cn(
         buttonVariants({ variant, size, fullWidth, rounded }),
-        className,
+        className
       )}
       {...props}
     >

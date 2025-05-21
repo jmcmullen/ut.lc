@@ -22,6 +22,7 @@ export const Header: React.FC = () => {
         </div>
 
         <button
+          type="button"
           onClick={toggleMenu}
           className="md:hidden focus:outline-none"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
