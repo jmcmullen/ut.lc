@@ -11,9 +11,15 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const PathlessLayoutRoute = PathlessLayoutImport.update({
+  id: '/_pathlessLayout',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,6 +38,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/_pathlessLayout': {
+      id: '/_pathlessLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PathlessLayoutImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +52,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '': typeof PathlessLayoutRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '': typeof PathlessLayoutRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_pathlessLayout': typeof PathlessLayoutRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | ''
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | ''
+  id: '__root__' | '/' | '/_pathlessLayout'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PathlessLayoutRoute: typeof PathlessLayoutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PathlessLayoutRoute: PathlessLayoutRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +95,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/_pathlessLayout"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_pathlessLayout": {
+      "filePath": "_pathlessLayout.tsx"
     }
   }
 }

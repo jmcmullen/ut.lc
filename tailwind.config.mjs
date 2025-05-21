@@ -48,12 +48,13 @@ export default {
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: 0, transform: "translateY(10px)" },
+          "0%": { opacity: 0, transform: "translateY(-10px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
       },
       animation: {
-        fadeIn: "fadeIn 0.5s ease-out forwards",
+        url: "fadeIn 1s ease-out forwards",
+        header: "fadeIn 0.15s ease-out",
       },
     },
   },
