@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
         </button>
 
         {isMenuOpen && (
-          <div className="absolute left-6 right-6 top-20 z-50 md:hidden">
+          <div className="absolute left-6 right-6 top-20 z-50 animate-header md:hidden">
             <div className="flex flex-col items-center rounded-lg bg-dark-violet p-6">
               <nav className="mb-6 w-full" role="navigation" data-testid="mobile-nav">
                 <ul className="flex flex-col items-center space-y-6">
