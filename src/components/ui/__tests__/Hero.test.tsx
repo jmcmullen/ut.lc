@@ -8,11 +8,11 @@ describe("Hero Component", () => {
     expect(
       screen.getByRole("heading", {
         name: /more than just shorter links/i,
-      })
+      }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText(/build your brand's recognition/i)
+      screen.getByText(/build your brand's recognition/i),
     ).toBeInTheDocument();
 
     expect(screen.getByText(/get started/i)).toBeInTheDocument();

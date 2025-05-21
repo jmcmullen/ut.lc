@@ -47,14 +47,14 @@ export const Features: React.FC = () => {
               key={feature.id}
               className={cn(
                 "w-full p-6 pt-20 bg-white rounded-md text-center md:text-left flex flex-col gap-y-4 items-center relative self-start md:justify-start",
-                featureVariants[index]
+                featureVariants[index],
               )}
             >
               {index > 0 && (
                 <div
                   className={cn(
                     "absolute h-20 w-2 -top-24 bg-cyan md:w-8 md:h-2 md:-left-8",
-                    connectorVariants[index]
+                    connectorVariants[index],
                   )}
                 />
               )}

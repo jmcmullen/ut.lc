@@ -1,5 +1,5 @@
-@import '@fontsource/poppins/500.css';
-@import '@fontsource/poppins/700.css';
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/700.css";
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 
 @layer base {
   html {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   * {
@@ -19,7 +19,12 @@
     @apply text-very-dark-violet bg-white text-base font-medium;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold;
   }
 
