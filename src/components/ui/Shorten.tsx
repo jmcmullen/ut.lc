@@ -2,11 +2,11 @@ import { Button } from "./Button";
 
 export const Shorten: React.FC = () => {
   return (
-    <form className="flex flex-col md:flex-row gap-y-4 md:gap-x-6 bg-dark-violet p-4 md:p-16 rounded-md w-full bg-shorten-mobile md:bg-shorten-desktop bg-no-repeat bg-right-top md:bg-cover">
+    <form className="flex w-full flex-col gap-y-4 rounded-md bg-dark-violet bg-shorten-mobile bg-right-top bg-no-repeat p-4 md:flex-row md:gap-x-6 md:bg-shorten-desktop md:bg-cover md:p-16">
       <input
         type="text"
         placeholder="Shorten a link here..."
-        className="p-4 border flex-1 border-grayish-violet rounded-md"
+        className="flex-1 rounded-md border border-grayish-violet p-4"
       />
       <Button type="submit" rounded={false}>
         Shorten It!

@@ -32,36 +32,36 @@ export const Features: React.FC = () => {
   const connectorVariants = ["", "md:top-[120px]", "md:top-[70px]"];
 
   return (
-    <section className="bg-light-gray pb-28 pt-44 -mt-20">
-      <div className="flex flex-col gap-y-8 px-6 max-w-7xl mx-auto">
+    <section className="-mt-20 bg-light-gray pb-28 pt-44">
+      <div className="mx-auto flex max-w-7xl flex-col gap-y-8 px-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-6">Advanced Statistics</h2>
+          <h2 className="mb-6 text-2xl font-bold">Advanced Statistics</h2>
           <p className="text-grayish-violet">
             Track how your links are performing across the web with our advanced
             statistics dashboard.
           </p>
         </div>
-        <ul className="flex flex-col md:flex-row md:gap-x-8 gap-y-24 mt-20">
+        <ul className="mt-20 flex flex-col gap-y-24 md:flex-row md:gap-x-8">
           {features.map((feature, index) => (
             <li
               key={feature.id}
               className={cn(
-                "w-full p-6 pt-20 bg-white rounded-md text-center md:text-left flex flex-col gap-y-4 items-center relative self-start md:justify-start",
-                featureVariants[index]
+                "relative flex w-full flex-col items-center gap-y-4 self-start rounded-md bg-white p-6 pt-20 text-center md:justify-start md:text-left",
+                featureVariants[index],
               )}
             >
               {index > 0 && (
                 <div
                   className={cn(
-                    "absolute h-20 w-2 -top-24 bg-cyan md:w-8 md:h-2 md:-left-8",
-                    connectorVariants[index]
+                    "absolute -top-24 h-20 w-2 bg-cyan md:-left-8 md:h-2 md:w-8",
+                    connectorVariants[index],
                   )}
                 />
               )}
-              <div className="bg-dark-violet size-20 rounded-full flex items-center justify-center p-3 absolute -top-10 md:self-start">
+              <div className="absolute -top-10 flex size-20 items-center justify-center rounded-full bg-dark-violet p-3 md:self-start">
                 <img src={feature.icon} alt={feature.title} />
               </div>
-              <h3 className="text-xl font-bold w-full">{feature.title}</h3>
+              <h3 className="w-full text-xl font-bold">{feature.title}</h3>
               <p className="text-grayish-violet">{feature.description}</p>
             </li>
           ))}

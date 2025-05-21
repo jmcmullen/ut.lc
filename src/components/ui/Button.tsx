@@ -1,5 +1,5 @@
-import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import React from "react";
 import { cn } from "~/utils/cn";
 
 const buttonVariants = cva(
@@ -30,7 +30,7 @@ const buttonVariants = cva(
       fullWidth: false,
       rounded: true,
     },
-  }
+  },
 );
 
 export interface ButtonProps
@@ -48,10 +48,8 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={cn(
-        buttonVariants({ variant, size, fullWidth, rounded }),
-        className
-      )}
+      type="button"
+      className={cn(buttonVariants({ variant, size, fullWidth, rounded }), className)}
       {...props}
     >
       {children}
