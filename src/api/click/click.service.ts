@@ -3,7 +3,6 @@ import { nanoid } from "nanoid";
 import { db } from "~/db";
 import {
   extractReferrerDomain,
-  getClientIp,
   parseUserAgent,
   parseVercelGeoHeaders,
 } from "~/utils/analytics";
@@ -120,9 +119,9 @@ export namespace ClickService {
       .from(clickTable)
       .where(and(...conditions));
 
-    // Get unique visitors (by IP)
+    // Get unique visitors (by user agent - less accurate but privacy-friendly)
     const [{ uniqueVisitors }] = await db
-      .select({ uniqueVisitors: count(sql`DISTINCT ${clickTable.ip}`) })
+      .select({ uniqueVisitors: count(sql`DISTINCT ${clickTable.userAgent}`) })
       .from(clickTable)
       .where(and(...conditions));
 
@@ -262,7 +261,6 @@ export namespace ClickService {
     try {
       const userAgent = headers.get("user-agent") || undefined;
       const referrer = headers.get("referer") || undefined;
-      const ip = getClientIp(headers);
       const geo = parseVercelGeoHeaders(headers);
       const parsedUA = userAgent ? parseUserAgent(userAgent) : undefined;
 
@@ -274,7 +272,6 @@ export namespace ClickService {
         os: parsedUA?.os,
         osVersion: parsedUA?.osVersion,
         device: parsedUA?.device,
-        ip,
         country: geo.country,
         region: geo.region,
         city: geo.city,

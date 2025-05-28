@@ -1,0 +1,1 @@
+ALTER TABLE "clicks" DROP COLUMN "ip";

@@ -16,7 +16,6 @@ export const clickTable = pgTable(
     os: varchar({ length: 50 }),
     osVersion: varchar({ length: 20 }),
     device: varchar({ length: 50 }),
-    ip: varchar({ length: 45 }),
     country: varchar({ length: 2 }),
     region: varchar({ length: 255 }),
     city: varchar({ length: 255 }),

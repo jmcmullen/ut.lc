@@ -15,6 +15,13 @@
       "when": 1748413044930,
       "tag": "0001_dry_rocket_racer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748424580434,
+      "tag": "0002_careless_doomsday",
+      "breakpoints": true
     }
   ]
 }

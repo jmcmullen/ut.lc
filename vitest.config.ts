@@ -12,7 +12,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "~/": new URL("./src/", import.meta.url).pathname,
-      "\\.svg$": "/Users/j/Dev/terem-url-test/src/__mocks__/svgMock.js",
     },
   },
 });

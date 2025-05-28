@@ -10,7 +10,6 @@ export const ClickSchema = z.object({
   os: z.string().max(50).nullish().describe("Operating system"),
   osVersion: z.string().max(20).nullish().describe("Operating system version"),
   device: z.string().max(50).nullish().describe("Device type"),
-  ip: z.string().max(45).nullish().describe("IP address of the visitor"),
   country: z.string().length(2).nullish().describe("Country code (ISO 3166-1 alpha-2)"),
   region: z.string().max(255).nullish().describe("Region/state name"),
   city: z.string().max(255).nullish().describe("City name"),
@@ -37,7 +36,7 @@ export const ClickInfoSchema = ClickSchema.extend({
 
 export const ClickStatsSchema = z.object({
   totalClicks: z.number().describe("Total number of clicks"),
-  uniqueVisitors: z.number().describe("Number of unique visitors (by IP)"),
+  uniqueVisitors: z.number().describe("Number of unique visitors (by user agent)"),
   topCountries: z
     .array(
       z.object({
