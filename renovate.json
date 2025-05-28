@@ -1,6 +1,112 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
-  ]
+    "config:recommended",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":enablePreCommit",
+    "group:allNonMajor",
+    "schedule:weekly"
+  ],
+  "timezone": "Australia/Sydney",
+  "labels": ["dependencies"],
+  "assignees": [],
+  "reviewers": [],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "labels": ["major"]
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "labels": ["minor"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "labels": ["patch"]
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "labels": ["dev-dependencies"]
+    },
+    {
+      "description": "Automatically merge minor and patch updates for dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Group ESLint packages",
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "ESLint packages"
+    },
+    {
+      "description": "Group Vitest packages",
+      "matchPackagePatterns": ["vitest", "@vitest"],
+      "groupName": "Vitest packages"
+    },
+    {
+      "description": "Group TanStack packages",
+      "matchPackagePatterns": ["@tanstack"],
+      "groupName": "TanStack packages"
+    },
+    {
+      "description": "Group oRPC packages",
+      "matchPackagePatterns": ["@orpc"],
+      "groupName": "oRPC packages"
+    },
+    {
+      "description": "Group Drizzle packages",
+      "matchPackagePatterns": ["drizzle"],
+      "groupName": "Drizzle packages"
+    },
+    {
+      "description": "Group React packages",
+      "matchPackageNames": ["react", "react-dom"],
+      "matchPackagePatterns": ["@types/react"],
+      "groupName": "React packages"
+    },
+    {
+      "description": "Group Testing Library packages",
+      "matchPackagePatterns": ["@testing-library"],
+      "groupName": "Testing Library packages"
+    },
+    {
+      "description": "Group Prettier packages",
+      "matchPackageNames": ["prettier"],
+      "matchPackagePatterns": ["prettier-plugin"],
+      "groupName": "Prettier packages"
+    },
+    {
+      "description": "Group TypeScript packages",
+      "matchPackageNames": ["typescript"],
+      "matchPackagePatterns": ["typescript-eslint", "@types/"],
+      "groupName": "TypeScript packages"
+    },
+    {
+      "description": "Group Tailwind packages",
+      "matchPackageNames": ["tailwindcss", "autoprefixer", "postcss"],
+      "matchPackagePatterns": ["tailwind"],
+      "groupName": "Tailwind packages"
+    }
+  ],
+  "prConcurrentLimit": 10,
+  "prCreation": "immediate",
+  "rebaseWhen": "behind-base-branch",
+  "semanticCommitScope": "deps",
+  "commitMessagePrefix": "chore",
+  "postUpdateOptions": ["pnpmDedupe"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 5am on monday"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "assignees": [],
+    "reviewers": [],
+    "enabled": true
+  }
 }
