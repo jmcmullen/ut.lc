@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, test, expect, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { Footer } from "../Footer";
 
 vi.mock("~/assets/images/icon-facebook.svg", () => ({ default: "facebook-icon-mock" }));

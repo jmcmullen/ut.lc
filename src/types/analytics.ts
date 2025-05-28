@@ -13,7 +13,7 @@ export interface ParsedUserAgent {
   browserVersion: string;
   os: string;
   osVersion: string;
-  device: 'desktop' | 'mobile' | 'tablet' | 'unknown';
+  device: "desktop" | "mobile" | "tablet" | "unknown";
 }
 
 // Analytics data collected on each click

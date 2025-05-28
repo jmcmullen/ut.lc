@@ -164,12 +164,8 @@
           "name": "clicks_urlId_urls_id_fk",
           "tableFrom": "clicks",
           "tableTo": "urls",
-          "columnsFrom": [
-            "urlId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["urlId"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

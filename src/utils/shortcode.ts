@@ -1,8 +1,8 @@
-import { customAlphabet } from 'nanoid';
+import { customAlphabet } from "nanoid";
 
 // Custom alphabet without similar looking characters (0, O, I, l)
 // This helps avoid confusion when users type URLs manually
-const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
 // Generate a 7-character short code by default
 export const generateShortCode = customAlphabet(alphabet, 7);
@@ -12,7 +12,7 @@ export function isValidShortCode(code: string): boolean {
   if (!code || code.length < 4 || code.length > 10) {
     return false;
   }
-  
+
   // Allow letters, numbers, hyphens, and underscores
   return /^[a-zA-Z0-9-_]+$/.test(code);
 }
@@ -21,6 +21,6 @@ export function isValidShortCode(code: string): boolean {
 export function sanitizeCustomCode(code: string): string {
   return code
     .trim()
-    .replace(/[^a-zA-Z0-9-_]/g, '') // Remove invalid characters
+    .replace(/[^a-zA-Z0-9-_]/g, "") // Remove invalid characters
     .substring(0, 10); // Limit length
 }
