@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
+import { Route as IdImport } from './routes/$id'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
 const PathlessLayoutRoute = PathlessLayoutImport.update({
   id: '/_pathlessLayout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IdRoute = IdImport.update({
+  id: '/$id',
+  path: '/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -38,6 +45,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/$id': {
+      id: '/$id'
+      path: '/$id'
+      fullPath: '/$id'
+      preLoaderRoute: typeof IdImport
+      parentRoute: typeof rootRoute
+    }
     '/_pathlessLayout': {
       id: '/_pathlessLayout'
       path: ''
@@ -52,36 +66,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
   '': typeof PathlessLayoutRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
   '': typeof PathlessLayoutRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$id': typeof IdRoute
   '/_pathlessLayout': typeof PathlessLayoutRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | ''
+  fullPaths: '/' | '/$id' | ''
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | ''
-  id: '__root__' | '/' | '/_pathlessLayout'
+  to: '/' | '/$id' | ''
+  id: '__root__' | '/' | '/$id' | '/_pathlessLayout'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IdRoute: typeof IdRoute
   PathlessLayoutRoute: typeof PathlessLayoutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IdRoute: IdRoute,
   PathlessLayoutRoute: PathlessLayoutRoute,
 }
 
@@ -96,11 +115,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/$id",
         "/_pathlessLayout"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/$id": {
+      "filePath": "$id.tsx"
     },
     "/_pathlessLayout": {
       "filePath": "_pathlessLayout.tsx"

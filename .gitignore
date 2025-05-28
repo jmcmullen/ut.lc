@@ -6,6 +6,7 @@ node_modules
 .vercel
 .output
 .vinxi
+.claude
 
 /build/
 /api/

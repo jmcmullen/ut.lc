@@ -25,5 +25,6 @@ export default tseslint.config({
   ],
   rules: {
     "react-hooks/react-compiler": "warn",
+    "@typescript-eslint/no-namespace": "off",
   },
 });

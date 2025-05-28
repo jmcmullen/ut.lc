@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+import { describe, expect, test, vi } from "vitest";
 import { Header } from "../Header";
 
-jest.mock("@tanstack/react-router", () => ({
+vi.mock("@tanstack/react-router", () => ({
   Link: ({ to, children }: { to: string; children: React.ReactNode }) => (
     <a href={to} data-testid="router-link">
       {children}
@@ -45,29 +46,29 @@ describe("Header Component", () => {
   test("responsive design shows/hides elements correctly", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
-      value: jest.fn().mockImplementation((query) => ({
+      value: vi.fn().mockImplementation((query) => ({
         matches: query.includes("(min-width: 1440px)"),
         media: query,
         onchange: null,
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
       })),
     });
 
     const { rerender } = render(<Header />);
 
-    window.matchMedia = jest.fn().mockImplementation(() => ({
+    window.matchMedia = vi.fn().mockImplementation(() => ({
       matches: false,
       media: "",
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
 
     rerender(<Header />);
@@ -76,15 +77,15 @@ describe("Header Component", () => {
       screen.getByLabelText(/open menu/i) || screen.getByLabelText(/close menu/i);
     expect(mobileMenuButton).toBeInTheDocument();
 
-    window.matchMedia = jest.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
       matches: query.includes("(min-width: 1440px)"),
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
     }));
 
     rerender(<Header />);

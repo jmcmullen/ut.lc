@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, test, vi } from "vitest";
 import { Button } from "../Button";
 
 describe("<Button />", () => {
@@ -48,7 +49,7 @@ describe("<Button />", () => {
   });
 
   test("handles click events", () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click Me</Button>);
 
     fireEvent.click(screen.getByRole("button", { name: /click me/i }));

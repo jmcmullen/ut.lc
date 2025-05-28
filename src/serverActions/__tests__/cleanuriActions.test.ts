@@ -1,16 +1,17 @@
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { handleForm } from "../cleanuriActions";
 
-jest.mock("../cleanuriActions", () => ({
-  handleForm: jest.fn(),
+vi.mock("../cleanuriActions", () => ({
+  handleForm: vi.fn(),
 }));
 
 describe("cleanuriActions", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test("handles successful URL shortening", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       resultUrl: "https://cleanuri.com/abc123",
       originalUrl: "https://example.com",
     });
@@ -29,7 +30,7 @@ describe("cleanuriActions", () => {
   });
 
   test("handles API error responses", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       error: "Invalid URL",
     });
     const result = await handleForm({
@@ -42,7 +43,7 @@ describe("cleanuriActions", () => {
   });
 
   test("handles fetch exceptions", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       error: "Network error",
     });
     const result = await handleForm({
@@ -55,7 +56,7 @@ describe("cleanuriActions", () => {
   });
 
   test("handles JSON parsing errors", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       error: "Invalid JSON",
     });
 
@@ -69,7 +70,7 @@ describe("cleanuriActions", () => {
   });
 
   test("handles schema validation errors", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       error: "Invalid input: expected string, received undefined",
     });
     const result = await handleForm({
