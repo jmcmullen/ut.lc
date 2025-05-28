@@ -1,31 +1,32 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { describe, test, expect, vi, beforeEach } from "vitest";
 import { useUrlContext } from "~/contexts/UrlContext";
 import { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
 import { handleForm } from "~/serverActions/cleanuriActions";
 import { Shorten } from "../Shorten";
 
-jest.mock("~/contexts/UrlContext", () => ({
-  useUrlContext: jest.fn(),
+vi.mock("~/contexts/UrlContext", () => ({
+  useUrlContext: vi.fn(),
 }));
 
-jest.mock("~/serverActions/cleanuriActions", () => ({
-  handleForm: jest.fn(),
+vi.mock("~/serverActions/cleanuriActions", () => ({
+  handleForm: vi.fn(),
 }));
 
 describe("<Shorten />", () => {
-  const mockAddUrl = jest.fn();
-  const mockCheckUrl = jest.fn();
+  const mockAddUrl = vi.fn();
+  const mockCheckUrl = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
-    (useUrlContext as jest.Mock).mockReturnValue({
+    (useUrlContext as ReturnType<typeof vi.fn>).mockReturnValue({
       addUrl: mockAddUrl,
       checkUrl: mockCheckUrl.mockReturnValue({ exists: false }),
     });
 
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       resultUrl: "https://cleanuri.com/abc123",
       originalUrl: "https://example.com",
     });
@@ -82,7 +83,7 @@ describe("<Shorten />", () => {
   });
 
   test("shows API error message when request fails", async () => {
-    jest.mocked(handleForm).mockResolvedValue({
+    vi.mocked(handleForm).mockResolvedValue({
       error: "Invalid URL",
     });
 
@@ -117,7 +118,7 @@ describe("<Shorten />", () => {
 
   test("shows loading state during submission", async () => {
     let resolvePromise!: (value: CleanuriOkResponse) => void;
-    jest.mocked(handleForm).mockImplementation(
+    vi.mocked(handleForm).mockImplementation(
       () =>
         new Promise((resolve) => {
           resolvePromise = resolve;
@@ -146,7 +147,7 @@ describe("<Shorten />", () => {
   });
 
   test("clears error message when input changes", async () => {
-    jest.mocked(handleForm).mockResolvedValueOnce({
+    vi.mocked(handleForm).mockResolvedValueOnce({
       error: "Invalid URL",
     });
 

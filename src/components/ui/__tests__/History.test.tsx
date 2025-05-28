@@ -1,15 +1,15 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { useUrlContext } from "~/contexts/UrlContext";
 import { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
 import { History } from "../History";
 
-jest.mock("~/contexts/UrlContext", () => ({
-  useUrlContext: jest.fn(),
+vi.mock("~/contexts/UrlContext", () => ({
+  useUrlContext: vi.fn(),
 }));
 
 describe("<History />", () => {
-  const mockCopyUrl = jest.fn();
+  const mockCopyUrl = vi.fn();
   const mockUrls: CleanuriOkResponse[] = [
     {
       resultUrl: "https://cleanuri.com/abc123",
@@ -23,17 +23,17 @@ describe("<History />", () => {
   ];
 
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest.clearAllMocks();
+    vi.useFakeTimers();
+    vi.clearAllMocks();
 
-    (useUrlContext as jest.Mock).mockReturnValue({
+    (useUrlContext as ReturnType<typeof vi.fn>).mockReturnValue({
       urls: mockUrls,
       copyUrl: mockCopyUrl,
     });
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   test("renders all shortened URLs in history", () => {
@@ -49,13 +49,12 @@ describe("<History />", () => {
   });
 
   test("calls copyUrl and changes button text when copy button is clicked", async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(<History />);
 
     const copyButtons = screen.getAllByRole("button", { name: /copy/i });
     const firstCopyButton = copyButtons[0];
 
-    await user.click(firstCopyButton);
+    fireEvent.click(firstCopyButton);
 
     expect(mockCopyUrl).toHaveBeenCalledWith(mockUrls[0]);
     expect(firstCopyButton).toHaveTextContent("Copied!");
@@ -73,7 +72,7 @@ describe("<History />", () => {
     expect(firstCopyButton).toHaveTextContent("Copied!");
 
     act(() => {
-      jest.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(3000);
     });
 
     expect(firstCopyButton).toHaveTextContent("Copy");
@@ -95,20 +94,20 @@ describe("<History />", () => {
     expect(copyButtons[1]).toHaveTextContent("Copied!");
 
     act(() => {
-      jest.advanceTimersByTime(2000);
+      vi.advanceTimersByTime(2000);
     });
 
     fireEvent.click(copyButtons[0]);
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      vi.advanceTimersByTime(1000);
     });
 
     expect(copyButtons[0]).toHaveTextContent("Copied!");
     expect(copyButtons[1]).toHaveTextContent("Copy");
 
     act(() => {
-      jest.advanceTimersByTime(3000);
+      vi.advanceTimersByTime(3000);
     });
 
     expect(copyButtons[0]).toHaveTextContent("Copy");
@@ -116,7 +115,7 @@ describe("<History />", () => {
   });
 
   test("renders empty state when no URLs exist", () => {
-    (useUrlContext as jest.Mock).mockReturnValueOnce({
+    (useUrlContext as ReturnType<typeof vi.fn>).mockReturnValueOnce({
       urls: [],
       copyUrl: mockCopyUrl,
     });
@@ -134,7 +133,7 @@ describe("<History />", () => {
     fireEvent.click(copyButtons[0]);
     fireEvent.click(copyButtons[1]);
 
-    const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+    const clearTimeoutSpy = vi.spyOn(global, "clearTimeout");
 
     unmount();
 

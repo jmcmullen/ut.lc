@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
+import { describe, test, expect, vi } from "vitest";
 import { Footer } from "../Footer";
 
-jest.mock("~/assets/images/icon-facebook.svg", () => "facebook-icon-mock");
-jest.mock("~/assets/images/icon-twitter.svg", () => "twitter-icon-mock");
-jest.mock("~/assets/images/icon-pinterest.svg", () => "pinterest-icon-mock");
-jest.mock("~/assets/images/icon-instagram.svg", () => "instagram-icon-mock");
+vi.mock("~/assets/images/icon-facebook.svg", () => ({ default: "facebook-icon-mock" }));
+vi.mock("~/assets/images/icon-twitter.svg", () => ({ default: "twitter-icon-mock" }));
+vi.mock("~/assets/images/icon-pinterest.svg", () => ({ default: "pinterest-icon-mock" }));
+vi.mock("~/assets/images/icon-instagram.svg", () => ({ default: "instagram-icon-mock" }));
 
 describe("<Footer />", () => {
   test("renders the logo", () => {

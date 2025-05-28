@@ -39,4 +39,4 @@ pnpm start
 - Tailwind CSS for styling
 - CI/CD using GitHub Actions
 - Eslint and Prettier for code quality
-- Jest for unit testing
+- Vitest for unit testing
