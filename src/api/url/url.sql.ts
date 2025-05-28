@@ -4,7 +4,7 @@ import { generateShortCode } from "~/utils/shortcode";
 import { clickTable } from "../click/click.sql";
 
 export const urlTable = pgTable("urls", {
-  id: varchar({ length: 10 })
+  id: varchar({ length: 32 })
     .$default(() => generateShortCode())
     .primaryKey(),
   createdAt: timestamp().defaultNow().notNull(),

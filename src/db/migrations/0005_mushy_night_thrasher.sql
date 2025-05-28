@@ -1,0 +1,2 @@
+ALTER TABLE "clicks" ALTER COLUMN "latitude" SET DATA TYPE numeric(10, 8) USING latitude::numeric(10, 8);--> statement-breakpoint
+ALTER TABLE "clicks" ALTER COLUMN "longitude" SET DATA TYPE numeric(11, 8) USING longitude::numeric(11, 8);

@@ -1,7 +1,8 @@
 import z from "zod/v4";
+import { isValidShortCode } from "~/utils/shortcode";
 
 export const UrlSchema = z.object({
-  id: z.string().min(7).max(10).meta({
+  id: z.string().min(4).max(32).meta({
     example: "abc123xyz",
     description: "Unique short code identifier for the URL",
   }),
@@ -13,7 +14,7 @@ export const UrlSchema = z.object({
     example: "2025-06-28T16:34:14.123Z",
     description: "Optional expiration date for the URL",
   }),
-  url: z.string().url().meta({
+  url: z.url("Must be a valid URL").meta({
     example: "https://example.com",
     description: "The original URL to be shortened",
   }),
@@ -29,10 +30,19 @@ export const CreateUrlSchema = UrlSchema.omit({
   expiresAt: true,
   isActive: true,
 }).extend({
-  id: z.string().min(7).max(10).optional().meta({
-    example: "custom123",
-    description: "Optional custom short code (auto-generated if not provided)",
-  }),
+  id: z
+    .string()
+    .min(4)
+    .max(32)
+    .refine(isValidShortCode, {
+      message:
+        "Invalid short code. Must be 4-32 characters and contain only letters, numbers, hyphens, and underscores.",
+    })
+    .optional()
+    .meta({
+      example: "custom-code",
+      description: "Optional custom short code (auto-generated if not provided)",
+    }),
   expiresAt: z.date().optional().meta({
     example: "2025-06-28T16:34:14.123Z",
     description: "Optional expiration date for the URL",

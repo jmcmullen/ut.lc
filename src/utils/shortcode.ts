@@ -9,7 +9,7 @@ export const generateShortCode = customAlphabet(alphabet, 7);
 
 // Validate if a string is a valid short code
 export function isValidShortCode(code: string): boolean {
-  if (!code || code.length < 4 || code.length > 10) {
+  if (!code || code.length < 4 || code.length > 32) {
     return false;
   }
 
@@ -22,5 +22,5 @@ export function sanitizeCustomCode(code: string): string {
   return code
     .trim()
     .replace(/[^a-zA-Z0-9-_]/g, "") // Remove invalid characters
-    .substring(0, 10); // Limit length
+    .substring(0, 32); // Limit length
 }

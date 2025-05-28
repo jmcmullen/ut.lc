@@ -2,7 +2,7 @@ import { z } from "zod/v4";
 
 export const ClickSchema = z.object({
   id: z.string().max(10).describe("Unique identifier for the click"),
-  urlId: z.string().max(10).describe("ID of the URL that was clicked"),
+  urlId: z.string().min(4).max(32).describe("ID of the URL that was clicked"),
   clickedAt: z.date().describe("Timestamp when the click occurred"),
   userAgent: z.string().nullish().describe("User agent string from the browser"),
   browser: z.string().max(50).nullish().describe("Browser name"),
@@ -10,11 +10,16 @@ export const ClickSchema = z.object({
   os: z.string().max(50).nullish().describe("Operating system"),
   osVersion: z.string().max(20).nullish().describe("Operating system version"),
   device: z.string().max(50).nullish().describe("Device type"),
+  ipHash: z
+    .string()
+    .max(64)
+    .nullish()
+    .describe("Hashed IP address for privacy-safe unique visitor counting"),
   country: z.string().length(2).nullish().describe("Country code (ISO 3166-1 alpha-2)"),
   region: z.string().max(255).nullish().describe("Region/state name"),
   city: z.string().max(255).nullish().describe("City name"),
-  latitude: z.string().max(20).nullish().describe("Latitude coordinate"),
-  longitude: z.string().max(20).nullish().describe("Longitude coordinate"),
+  latitude: z.string().nullish().describe("Latitude coordinate"),
+  longitude: z.string().nullish().describe("Longitude coordinate"),
   referrer: z.string().nullish().describe("Referrer URL"),
   referrerDomain: z.string().max(255).nullish().describe("Referrer domain"),
 });
@@ -27,16 +32,16 @@ export const CreateClickSchema = ClickSchema.omit({
 export const ClickInfoSchema = ClickSchema.extend({
   url: z
     .object({
-      id: z.string(),
+      id: z.string().min(4).max(32),
       url: z.string(),
-      shortCode: z.string(),
+      shortCode: z.string().min(4).max(32),
     })
     .optional(),
 });
 
 export const ClickStatsSchema = z.object({
   totalClicks: z.number().describe("Total number of clicks"),
-  uniqueVisitors: z.number().describe("Number of unique visitors (by user agent)"),
+  uniqueVisitors: z.number().describe("Number of unique visitors (by hashed IP)"),
   topCountries: z
     .array(
       z.object({

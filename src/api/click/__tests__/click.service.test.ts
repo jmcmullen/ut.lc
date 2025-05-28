@@ -16,6 +16,7 @@ vi.mock("~/db", () => ({
 
 vi.mock("~/utils/analytics", () => ({
   extractReferrerDomain: vi.fn((url: string) => new URL(url).hostname),
+  getClientIp: vi.fn(() => "192.168.1.1"),
   parseUserAgent: vi.fn(() => ({
     browser: "Chrome",
     browserVersion: "120.0",
@@ -54,6 +55,7 @@ const mockClick = {
   os: "Windows",
   osVersion: "11",
   device: "Desktop",
+  ipHash: "c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646",
   country: "US",
   region: "California",
   city: "San Francisco",
@@ -96,6 +98,7 @@ describe("ClickService", () => {
         os: "Windows",
         osVersion: "11",
         device: "Desktop",
+        ipHash: "c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646",
         country: "US",
         region: "California",
         city: "San Francisco",
