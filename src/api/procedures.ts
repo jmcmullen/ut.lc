@@ -2,9 +2,7 @@ import { ORPCError, os } from "@orpc/server";
 import type { User } from "better-auth";
 import type { APIContext } from "./context";
 
-export const publicProcedure = os.$context<APIContext>();
-
-export const authProcedure = publicProcedure.use(({ context, next }) => {
+const authMiddleware = os.$context<APIContext>().middleware(({ context, next }) => {
   if (!context.user) {
     throw new ORPCError("UNAUTHORIZED", {
       message: "Please provide a valid api key",
@@ -18,3 +16,6 @@ export const authProcedure = publicProcedure.use(({ context, next }) => {
     },
   });
 });
+
+export const publicProcedure = os.$context<APIContext>();
+export const authProcedure = publicProcedure.use(authMiddleware);

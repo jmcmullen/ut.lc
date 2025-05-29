@@ -2,7 +2,6 @@ import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { DefaultCatchBoundary } from "./components/DefaultCatchBoundary";
 import { NotFound } from "./components/NotFound";
 import { routeTree } from "./routeTree.gen";
-import { authMiddleware } from "./utils/auth-middleware";
 
 export function createRouter() {
   const router = createTanStackRouter({
@@ -11,7 +10,6 @@ export function createRouter() {
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
     scrollRestoration: true,
-    globalMiddleware: [authMiddleware],
   });
 
   return router;

@@ -10,9 +10,10 @@ import {
 import { createAPIFileRoute } from "@tanstack/react-start/api";
 import { auth } from "~/api/auth";
 import { clickRouter } from "~/api/click/click.router";
+import { type APIContext } from "~/api/context";
 import { urlRouter } from "~/api/url/url.router";
 
-const router = os.prefix("/api/v1").router({
+const router = os.$context<APIContext>().prefix("/api/v1").router({
   url: urlRouter,
   click: clickRouter,
 });
