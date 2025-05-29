@@ -2,7 +2,7 @@ import { typeid } from "typeid-js";
 
 export const prefixes = {
   account: "acc",
-  apiKey: "key",
+  apikey: "key",
   click: "clk",
   session: "ses",
   url: "url",

@@ -1,71 +1,6 @@
 import { useForm } from "@tanstack/react-form";
-import { createServerFn } from "@tanstack/react-start";
-import { getHeaders } from "@tanstack/react-start/server";
 import React, { useState } from "react";
-import { auth } from "~/api/auth/auth";
-
-// Server function to check if user has password
-const checkHasPassword = createServerFn({ method: "GET" }).handler(async () => {
-  const headers = getHeaders();
-  const session = await auth.api.getSession({
-    headers: new Headers(headers as HeadersInit),
-  });
-
-  if (!session?.user) {
-    throw new Error("Unauthorized");
-  }
-
-  // Check if user has a password account
-  const accounts = await auth.api.listUserAccounts({
-    headers: new Headers(headers as HeadersInit),
-  });
-
-  const hasPassword = accounts.some(
-    (account: { provider: string }) => account.provider === "credential",
-  );
-  return { hasPassword };
-});
-
-// Server function to change or set password
-const updatePassword = createServerFn({ method: "POST" })
-  .validator(
-    (data: {
-      currentPassword?: string;
-      newPassword: string;
-      isSettingPassword: boolean;
-    }) => data,
-  )
-  .handler(async ({ data }) => {
-    const headers = getHeaders();
-    const session = await auth.api.getSession({
-      headers: new Headers(headers as HeadersInit),
-    });
-
-    if (!session?.user) {
-      throw new Error("Unauthorized");
-    }
-
-    if (data.isSettingPassword) {
-      // For social login users setting password for the first time
-      await auth.api.unlinkAccount({
-        body: {
-          providerId: "credential",
-        },
-        headers: new Headers(headers as HeadersInit),
-      });
-    } else {
-      // For users changing existing password
-      await auth.api.changePassword({
-        body: {
-          currentPassword: data.currentPassword!,
-          newPassword: data.newPassword,
-        },
-        headers: new Headers(headers as HeadersInit),
-      });
-    }
-
-    return { success: true };
-  });
+import { checkHasPassword, updatePassword } from "~/actions/accountActions";
 
 export function PasswordChangeForm() {
   const [message, setMessage] = useState<{
@@ -169,7 +104,7 @@ export function PasswordChangeForm() {
   if (loading) {
     return (
       <div className="mt-6 rounded-lg bg-white p-6 shadow-sm">
-        <div className="text-sm text-gray-500">Loading...</div>
+        <div className="text-gray-500 text-sm">Loading...</div>
       </div>
     );
   }
@@ -190,12 +125,12 @@ export function PasswordChangeForm() {
 
       <form onSubmit={handleSubmit} className="space-y-6 p-6">
         <div>
-          <h2 className="mb-4 text-lg font-medium text-gray-900">
+          <h2 className="text-gray-900 mb-4 text-lg font-medium">
             {hasPassword ? "Change Password" : "Set Password"}
           </h2>
 
           {!hasPassword && (
-            <p className="mb-4 text-sm text-gray-600">
+            <p className="text-gray-600 mb-4 text-sm">
               You signed in with a social provider. Set a password to enable
               email/password login.
             </p>
@@ -208,7 +143,7 @@ export function PasswordChangeForm() {
                   <div>
                     <label
                       htmlFor={field.name}
-                      className="block text-sm font-medium text-gray-700"
+                      className="text-gray-700 block text-sm font-medium"
                     >
                       Current Password
                     </label>
@@ -218,7 +153,7 @@ export function PasswordChangeForm() {
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                      className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                       placeholder="Enter current password"
                     />
                     {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -240,7 +175,7 @@ export function PasswordChangeForm() {
                 <div>
                   <label
                     htmlFor={field.name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-gray-700 block text-sm font-medium"
                   >
                     New Password
                   </label>
@@ -250,7 +185,7 @@ export function PasswordChangeForm() {
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter new password"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -271,7 +206,7 @@ export function PasswordChangeForm() {
                 <div>
                   <label
                     htmlFor={field.name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-gray-700 block text-sm font-medium"
                   >
                     Confirm New Password
                   </label>
@@ -281,7 +216,7 @@ export function PasswordChangeForm() {
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Confirm new password"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -299,7 +234,7 @@ export function PasswordChangeForm() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-gray-200 border-t pt-4">
           <div className="flex justify-end">
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}

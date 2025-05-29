@@ -1,32 +1,6 @@
 import { eq } from "drizzle-orm";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-// Mock environment variables
-process.env.DATABASE_URL = "postgresql://test:test@localhost:5432/test?sslmode=require";
-
-// Mock database modules before imports
-vi.mock("@neondatabase/serverless", () => ({
-  neon: vi.fn(() => vi.fn()),
-}));
-
-vi.mock("drizzle-orm/neon-http", () => ({
-  drizzle: vi.fn(() => ({
-    select: vi.fn(),
-    insert: vi.fn(),
-    update: vi.fn(),
-    delete: vi.fn(),
-  })),
-}));
-
-vi.mock("~/api/db", () => ({
-  db: {
-    select: vi.fn(),
-    insert: vi.fn(),
-    update: vi.fn(),
-    delete: vi.fn(),
-  },
-}));
-
 vi.mock("~/utils/analytics", () => ({
   extractReferrerDomain: vi.fn((url: string) => new URL(url).hostname),
   getClientIp: vi.fn(() => "192.168.1.1"),

@@ -33,6 +33,7 @@ export default defineConfig({
           name: "node",
           globals: true,
           environment: "node",
+          setupFiles: ["./vitest.setup.node.ts"],
           include: ["src/api/**/*.test.{ts,tsx}", "src/serverActions/**/*.test.{ts,tsx}"],
         },
         resolve: {

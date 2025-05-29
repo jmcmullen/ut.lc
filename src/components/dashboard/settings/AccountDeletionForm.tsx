@@ -1,60 +1,6 @@
 import { useForm } from "@tanstack/react-form";
-import { redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getHeaders } from "@tanstack/react-start/server";
 import React, { useState } from "react";
-import { auth } from "~/api/auth/auth";
-
-// Server function to check if user has password
-const checkHasPassword = createServerFn({ method: "GET" }).handler(async () => {
-  const headers = getHeaders();
-  const session = await auth.api.getSession({
-    headers: new Headers(headers as HeadersInit),
-  });
-
-  if (!session?.user) {
-    throw new Error("Unauthorized");
-  }
-
-  // For now, we'll assume users have passwords unless they signed up with social login
-  // In a real implementation, you'd check the user's account providers
-  // This is a simplified approach - adjust based on your actual auth setup
-  return { hasPassword: false }; // Set to false for social login users
-});
-
-// Server function to delete account
-const deleteAccount = createServerFn({ method: "POST" })
-  .validator((data: { password?: string; hasPassword: boolean }) => data)
-  .handler(async ({ data }) => {
-    const headers = getHeaders();
-    const session = await auth.api.getSession({
-      headers: new Headers(headers as HeadersInit),
-    });
-
-    if (!session?.user) {
-      throw new Error("Unauthorized");
-    }
-
-    // Delete the user account
-    if (data.hasPassword && data.password) {
-      await auth.api.deleteUser({
-        body: {
-          password: data.password,
-        },
-        headers: new Headers(headers as HeadersInit),
-      });
-    } else {
-      // For users without password, we might need a different approach
-      // This depends on how Better Auth handles social login users
-      await auth.api.deleteUser({
-        body: {},
-        headers: new Headers(headers as HeadersInit),
-      });
-    }
-
-    // Redirect to home page after deletion
-    throw redirect({ to: "/" });
-  });
+import { checkHasPassword, deleteAccount } from "~/actions/accountActions";
 
 export function AccountDeletionForm() {
   const [message, setMessage] = useState<{
@@ -130,7 +76,7 @@ export function AccountDeletionForm() {
   if (loading) {
     return (
       <div className="border-red-200 mt-6 rounded-lg border-2 bg-white p-6 shadow-sm">
-        <div className="text-sm text-gray-500">Loading...</div>
+        <div className="text-gray-500 text-sm">Loading...</div>
       </div>
     );
   }
@@ -140,7 +86,7 @@ export function AccountDeletionForm() {
       <div className="p-6">
         <h2 className="text-red-900 mb-4 text-lg font-medium">Delete Account</h2>
 
-        <div className="mb-4 text-sm text-gray-600">
+        <div className="text-gray-600 mb-4 text-sm">
           <p className="mb-2">
             <strong className="text-red-600">Warning:</strong> This action is permanent
             and cannot be undone.
@@ -175,7 +121,7 @@ export function AccountDeletionForm() {
                   <div>
                     <label
                       htmlFor={field.name}
-                      className="block text-sm font-medium text-gray-700"
+                      className="text-gray-700 block text-sm font-medium"
                     >
                       Type <span className="font-mono font-bold">DELETE</span> to confirm
                     </label>
@@ -185,7 +131,7 @@ export function AccountDeletionForm() {
                       name={field.name}
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      className="focus:border-red-500 focus:ring-red-500 mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm sm:text-sm"
+                      className="focus:border-red-500 focus:ring-red-500 border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm sm:text-sm"
                       placeholder="Type DELETE"
                     />
                     {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -207,7 +153,7 @@ export function AccountDeletionForm() {
                     <div>
                       <label
                         htmlFor={field.name}
-                        className="block text-sm font-medium text-gray-700"
+                        className="text-gray-700 block text-sm font-medium"
                       >
                         Enter your password to confirm
                       </label>
@@ -217,7 +163,7 @@ export function AccountDeletionForm() {
                         name={field.name}
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        className="focus:border-red-500 focus:ring-red-500 mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm sm:text-sm"
+                        className="focus:border-red-500 focus:ring-red-500 border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm sm:text-sm"
                         placeholder="Enter your password"
                       />
                       {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -243,7 +189,7 @@ export function AccountDeletionForm() {
                     form.reset();
                     setMessage(null);
                   }}
-                  className="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500 inline-flex justify-center rounded-md border bg-white px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
                 >
                   Cancel
                 </button>

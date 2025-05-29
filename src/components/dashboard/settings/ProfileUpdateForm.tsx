@@ -1,69 +1,14 @@
 import { useForm } from "@tanstack/react-form";
-import { createServerFn } from "@tanstack/react-start";
-import { getHeaders } from "@tanstack/react-start/server";
 import { useState } from "react";
 import { z } from "zod";
-import { auth } from "~/api/auth/auth";
+import { updateProfile } from "~/actions/accountActions";
 import { useSession } from "~/utils/auth-client";
 
-// Validation schema
 const profileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
   image: z.string().url("Invalid URL").or(z.literal("")),
 });
-
-// Server function to update user profile
-const updateProfile = createServerFn({ method: "POST" })
-  .validator(
-    (data: {
-      name?: string;
-      email?: string;
-      image?: string;
-      currentUser: {
-        name?: string;
-        email?: string;
-        image?: string;
-      };
-    }) => data,
-  )
-  .handler(async ({ data }) => {
-    const headers = getHeaders();
-    const session = await auth.api.getSession({
-      headers: new Headers(headers as HeadersInit),
-    });
-
-    if (!session?.user) {
-      throw new Error("Unauthorized");
-    }
-
-    // Build update body with only changed values
-    const updateBody: Record<string, string> = {};
-
-    if (data.name !== undefined && data.name !== data.currentUser.name) {
-      updateBody.name = data.name;
-    }
-
-    if (data.email !== undefined && data.email !== data.currentUser.email) {
-      updateBody.email = data.email;
-    }
-
-    if (data.image !== undefined && data.image !== data.currentUser.image) {
-      updateBody.image = data.image;
-    }
-
-    // Only call API if there are changes
-    if (Object.keys(updateBody).length === 0) {
-      return { success: true, message: "No changes to update" };
-    }
-
-    await auth.api.updateUser({
-      body: updateBody,
-      headers: new Headers(headers as HeadersInit),
-    });
-
-    return { success: true, emailChanged: updateBody.email !== undefined };
-  });
 
 interface ProfileUpdateFormProps {
   user: {
@@ -156,7 +101,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
 
       <form onSubmit={handleSubmit} className="space-y-6 p-6">
         <div>
-          <h2 className="mb-4 text-lg font-medium text-gray-900">Profile Information</h2>
+          <h2 className="text-gray-900 mb-4 text-lg font-medium">Profile Information</h2>
 
           <div className="space-y-4">
             <form.Field name="name">
@@ -164,7 +109,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                 <div>
                   <label
                     htmlFor={field.name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-gray-700 block text-sm font-medium"
                   >
                     Name
                   </label>
@@ -174,7 +119,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter your name"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -195,7 +140,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                 <div>
                   <label
                     htmlFor={field.name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-gray-700 block text-sm font-medium"
                   >
                     Email
                   </label>
@@ -205,7 +150,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter your email"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -218,7 +163,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     </p>
                   )}
                   {field.state.value !== user?.email && (
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="text-gray-500 mt-1 text-sm">
                       <span className="text-amber-600">
                         ⚠️ Changing your email will require re-verification
                       </span>
@@ -233,7 +178,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                 <div>
                   <label
                     htmlFor={field.name}
-                    className="block text-sm font-medium text-gray-700"
+                    className="text-gray-700 block text-sm font-medium"
                   >
                     Profile Image URL
                   </label>
@@ -243,7 +188,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    className="border-gray-300 mt-1 block w-full rounded-md border px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="https://example.com/avatar.jpg"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -273,7 +218,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-gray-200 border-t pt-4">
           <div className="flex justify-end">
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}

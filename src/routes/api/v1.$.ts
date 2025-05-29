@@ -8,7 +8,7 @@ import {
   experimental_ZodToJsonSchemaConverter as ZodToJsonSchemaConverter,
 } from "@orpc/zod/zod4";
 import { createAPIFileRoute } from "@tanstack/react-start/api";
-import { auth } from "~/api/auth/auth";
+import { auth } from "~/api/auth";
 import { clickRouter } from "~/api/click/click.router";
 import { urlRouter } from "~/api/url/url.router";
 
@@ -50,7 +50,7 @@ Authentication Methods:
             sessionAuth: {
               type: "apiKey",
               in: "cookie",
-              name: "better-auth.session_token",
+              name: "utlc.session_token",
               description: "Session-based authentication",
             },
           },
