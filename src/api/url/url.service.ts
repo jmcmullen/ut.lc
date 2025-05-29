@@ -1,3 +1,4 @@
+import { ORPCError } from "@orpc/server";
 import { and, desc, eq } from "drizzle-orm";
 import { db } from "~/api/db";
 import type { PaginationParams } from "../pagination";
@@ -29,6 +30,16 @@ export namespace UrlService {
   export async function create(data: CreateUrl, userId: string): Promise<Url> {
     const { slug, ...values } = data;
 
+    // Check if custom slug is available before inserting
+    if (slug) {
+      const isAvailable = await isSlugAvailable(slug);
+      if (!isAvailable) {
+        throw new ORPCError("CONFLICT", {
+          message: `Slug '${slug}' is already taken. Please choose a different slug.`,
+        });
+      }
+    }
+
     const [row] = await db
       .insert(urlTable)
       .values({
@@ -42,37 +53,51 @@ export namespace UrlService {
   }
 
   /**
-   * Update an existing URL by slug
+   * Update an existing URL by ID
    */
   export async function update(
-    slug: string,
+    id: string,
     data: UpdateUrl,
     userId: string,
   ): Promise<Url> {
+    // Check if custom slug is available before updating (if slug is being changed)
+    if (data.slug) {
+      const isAvailable = await isSlugAvailable(data.slug);
+      if (!isAvailable) {
+        throw new ORPCError("CONFLICT", {
+          message: `Slug '${data.slug}' is already taken. Please choose a different slug.`,
+        });
+      }
+    }
+
     const [row] = await db
       .update(urlTable)
       .set(data)
-      .where(and(eq(urlTable.slug, slug), eq(urlTable.userId, userId)))
+      .where(and(eq(urlTable.id, id), eq(urlTable.userId, userId)))
       .returning();
 
     if (!row) {
-      throw new Error(`URL with slug ${slug} not found or you don't have permission`);
+      throw new ORPCError("NOT_FOUND", {
+        message: `URL with id ${id} not found or you don't have permission`,
+      });
     }
 
     return serialize(row);
   }
 
   /**
-   * Delete a URL by slug
+   * Delete a URL by ID
    */
-  export async function remove(slug: string, userId: string): Promise<Url> {
+  export async function remove(id: string, userId: string): Promise<Url> {
     const [row] = await db
       .delete(urlTable)
-      .where(and(eq(urlTable.slug, slug), eq(urlTable.userId, userId)))
+      .where(and(eq(urlTable.id, id), eq(urlTable.userId, userId)))
       .returning();
 
     if (!row) {
-      throw new Error(`URL with slug ${slug} not found or you don't have permission`);
+      throw new ORPCError("NOT_FOUND", {
+        message: `URL with id ${id} not found or you don't have permission`,
+      });
     }
 
     return serialize(row);

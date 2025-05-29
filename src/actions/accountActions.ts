@@ -1,6 +1,6 @@
+import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getHeaders } from "@tanstack/react-start/server";
-import { redirect } from "@tanstack/react-router";
 import { auth } from "~/api/auth";
 
 /**
@@ -22,9 +22,9 @@ export const checkHasPassword = createServerFn({ method: "GET" }).handler(async 
   });
 
   const hasPassword = accounts.some(
-    (account: { provider: string }) => account.provider === "credential"
+    (account: { provider: string }) => account.provider === "credential",
   );
-  
+
   return { hasPassword };
 });
 
@@ -32,11 +32,13 @@ export const checkHasPassword = createServerFn({ method: "GET" }).handler(async 
  * Update or set user password
  */
 export const updatePassword = createServerFn({ method: "POST" })
-  .validator((data: { 
-    currentPassword?: string;
-    newPassword: string;
-    isSettingPassword: boolean;
-  }) => data)
+  .validator(
+    (data: {
+      currentPassword?: string;
+      newPassword: string;
+      isSettingPassword: boolean;
+    }) => data,
+  )
   .handler(async ({ data }) => {
     const headers = getHeaders();
     const session = await auth.api.getSession({

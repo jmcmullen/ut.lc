@@ -33,35 +33,35 @@ const create = authProcedure
 const update = authProcedure
   .route({
     method: "PATCH",
-    path: "/url/{slug}",
+    path: "/url/{id}",
     summary: "Update a shortened URL",
     description:
-      "Update an existing shortened URL's properties. You can modify the target URL, active status, and expiration date. The URL slug cannot be changed.",
+      "Update an existing shortened URL's properties. You can modify the target URL, slug, active status, and expiration date. The URL ID cannot be changed.",
     tags: ["URL"],
   })
   .input(
     z.object({
-      slug: z.string(),
+      id: z.string(),
       data: UpdateUrlSchema,
     }),
   )
   .output(UrlSchema)
   .handler(({ input, context }) =>
-    UrlService.update(input.slug, input.data, context.user.id),
+    UrlService.update(input.id, input.data, context.user.id),
   );
 
 const remove = authProcedure
   .route({
     method: "DELETE",
-    path: "/url/{slug}",
+    path: "/url/{id}",
     summary: "Delete a shortened URL",
     description:
       "Permanently delete a shortened URL. This action cannot be undone and will also remove all associated click analytics data.",
     tags: ["URL"],
   })
-  .input(z.object({ slug: z.string() }))
+  .input(z.object({ id: z.string() }))
   .output(UrlSchema)
-  .handler(({ input, context }) => UrlService.remove(input.slug, context.user.id));
+  .handler(({ input, context }) => UrlService.remove(input.id, context.user.id));
 
 export const urlRouter = {
   list,

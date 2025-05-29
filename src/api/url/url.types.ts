@@ -63,7 +63,23 @@ export const UpdateUrlSchema = UrlSchema.pick({
   url: true,
   isActive: true,
   expiresAt: true,
-}).partial();
+})
+  .extend({
+    slug: z
+      .string()
+      .min(4)
+      .max(32)
+      .optional()
+      .refine((code) => !code || isValidShortCode(code), {
+        message:
+          "Invalid short code. Must be 4-32 characters and contain only letters, numbers, hyphens, and underscores.",
+      })
+      .meta({
+        example: "custom-code",
+        description: "Optional custom slug",
+      }),
+  })
+  .partial();
 
 export type Url = z.infer<typeof UrlSchema>;
 export type CreateUrl = z.infer<typeof CreateUrlSchema>;

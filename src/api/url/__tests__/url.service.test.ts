@@ -1,3 +1,4 @@
+import { ORPCError } from "@orpc/server";
 import { and, eq } from "drizzle-orm";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { db } from "~/api/db";
@@ -76,6 +77,14 @@ describe("UrlService", () => {
         returning: vi.fn().mockResolvedValue([customUrl]),
       };
 
+      // Mock isSlugAvailable to return true (available)
+      const selectMock = {
+        from: vi.fn().mockReturnThis(),
+        where: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValue([]), // No existing slug found
+      };
+
+      (db.select as ReturnType<typeof vi.fn>).mockReturnValue(selectMock);
       (db.insert as ReturnType<typeof vi.fn>).mockReturnValue(insertMock);
 
       const result = await UrlService.create(
@@ -87,11 +96,45 @@ describe("UrlService", () => {
       );
 
       expect(result).toEqual(customUrl);
+      expect(db.select).toHaveBeenCalled(); // Check that slug availability was checked
       expect(insertMock.values).toHaveBeenCalledWith({
         url: "https://example.com",
         userId: mockUserId,
         slug: "custom123",
       });
+    });
+
+    test("throws error when custom slug is already taken", async () => {
+      // Mock isSlugAvailable to return false (not available)
+      const selectMock = {
+        from: vi.fn().mockReturnThis(),
+        where: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValue([{ slug: "taken123" }]), // Existing slug found
+      };
+
+      (db.select as ReturnType<typeof vi.fn>).mockReturnValue(selectMock);
+
+      try {
+        await UrlService.create(
+          {
+            url: "https://example.com",
+            slug: "taken123",
+          },
+          mockUserId,
+        );
+        // Should not reach this line
+        expect(true).toBe(false);
+      } catch (error) {
+        expect(error).toBeInstanceOf(ORPCError);
+        expect(error).toHaveProperty(
+          "message",
+          "Slug 'taken123' is already taken. Please choose a different slug.",
+        );
+        expect(error).toHaveProperty("code", "CONFLICT");
+      }
+
+      // Verify that insert was never called
+      expect(db.insert).not.toHaveBeenCalled();
     });
   });
 
@@ -107,7 +150,7 @@ describe("UrlService", () => {
       (db.update as ReturnType<typeof vi.fn>).mockReturnValue(updateMock);
 
       const result = await UrlService.update(
-        "abc123xyz",
+        "url_123456789",
         {
           url: "https://updated.com",
         },
@@ -120,8 +163,65 @@ describe("UrlService", () => {
         url: "https://updated.com",
       });
       expect(updateMock.where).toHaveBeenCalledWith(
-        and(eq(urlTable.slug, "abc123xyz"), eq(urlTable.userId, mockUserId)),
+        and(eq(urlTable.id, "url_123456789"), eq(urlTable.userId, mockUserId)),
       );
+    });
+
+    test("updates URL with new slug when available", async () => {
+      const updatedUrl = { ...mockUrl, slug: "newslug123" };
+
+      // Mock isSlugAvailable to return true (available)
+      const selectMock = {
+        from: vi.fn().mockReturnThis(),
+        where: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValue([]), // No existing slug found
+      };
+
+      const updateMock = {
+        set: vi.fn().mockReturnThis(),
+        where: vi.fn().mockReturnThis(),
+        returning: vi.fn().mockResolvedValue([updatedUrl]),
+      };
+
+      (db.select as ReturnType<typeof vi.fn>).mockReturnValue(selectMock);
+      (db.update as ReturnType<typeof vi.fn>).mockReturnValue(updateMock);
+
+      const result = await UrlService.update(
+        "url_123456789",
+        { slug: "newslug123" },
+        mockUserId,
+      );
+
+      expect(result).toEqual(updatedUrl);
+      expect(db.select).toHaveBeenCalled(); // Check that slug availability was checked
+      expect(updateMock.set).toHaveBeenCalledWith({ slug: "newslug123" });
+    });
+
+    test("throws error when updating with taken slug", async () => {
+      // Mock isSlugAvailable to return false (not available)
+      const selectMock = {
+        from: vi.fn().mockReturnThis(),
+        where: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValue([{ slug: "taken123" }]), // Existing slug found
+      };
+
+      (db.select as ReturnType<typeof vi.fn>).mockReturnValue(selectMock);
+
+      try {
+        await UrlService.update("url_123456789", { slug: "taken123" }, mockUserId);
+        // Should not reach this line
+        expect(true).toBe(false);
+      } catch (error) {
+        expect(error).toBeInstanceOf(ORPCError);
+        expect(error).toHaveProperty(
+          "message",
+          "Slug 'taken123' is already taken. Please choose a different slug.",
+        );
+        expect(error).toHaveProperty("code", "CONFLICT");
+      }
+
+      // Verify that update was never called
+      expect(db.update).not.toHaveBeenCalled();
     });
 
     test("throws error when URL not found", async () => {
@@ -135,9 +235,7 @@ describe("UrlService", () => {
 
       await expect(
         UrlService.update("nonexistent", { url: "https://updated.com" }, mockUserId),
-      ).rejects.toThrow(
-        "URL with slug nonexistent not found or you don't have permission",
-      );
+      ).rejects.toThrow(ORPCError);
     });
   });
 
@@ -150,12 +248,12 @@ describe("UrlService", () => {
 
       (db.delete as ReturnType<typeof vi.fn>).mockReturnValue(deleteMock);
 
-      const result = await UrlService.remove("abc123xyz", mockUserId);
+      const result = await UrlService.remove("url_123456789", mockUserId);
 
       expect(result).toEqual(mockUrl);
       expect(db.delete).toHaveBeenCalledWith(urlTable);
       expect(deleteMock.where).toHaveBeenCalledWith(
-        and(eq(urlTable.slug, "abc123xyz"), eq(urlTable.userId, mockUserId)),
+        and(eq(urlTable.id, "url_123456789"), eq(urlTable.userId, mockUserId)),
       );
     });
 
@@ -168,7 +266,7 @@ describe("UrlService", () => {
       (db.delete as ReturnType<typeof vi.fn>).mockReturnValue(deleteMock);
 
       await expect(UrlService.remove("nonexistent", mockUserId)).rejects.toThrow(
-        "URL with slug nonexistent not found or you don't have permission",
+        ORPCError,
       );
     });
   });
