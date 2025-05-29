@@ -28,9 +28,9 @@ const getRedirectUrl = createServerFn({ method: "GET" })
 export const Route = createFileRoute("/$")({
   beforeLoad: async ({ params, context }) => {
     const slug = params._splat;
-    
+
     // Only handle single segment paths (no slashes)
-    if (!slug || slug.includes('/')) {
+    if (!slug || slug.includes("/")) {
       return;
     }
 

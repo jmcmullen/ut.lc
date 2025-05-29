@@ -22,8 +22,8 @@ function SettingsComponent() {
   return (
     <section>
       <div className="mb-8">
-        <h1 className="text-gray-900 text-2xl font-bold">Account Settings</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900">Account Settings</h1>
+        <p className="mt-1 text-gray-600">
           Manage your account settings and profile information
         </p>
       </div>

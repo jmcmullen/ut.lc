@@ -10,7 +10,7 @@ export namespace UrlService {
    */
   export async function list(
     { limit, cursor }: PaginationParams,
-    userId: string
+    userId: string,
   ): Promise<Url[]> {
     const rows = await db
       .select()
@@ -47,7 +47,7 @@ export namespace UrlService {
   export async function update(
     slug: string,
     data: UpdateUrl,
-    userId: string
+    userId: string,
   ): Promise<Url> {
     const [row] = await db
       .update(urlTable)
@@ -91,7 +91,11 @@ export namespace UrlService {
    * Find a URL by slug
    */
   export async function findBySlug(slug: string): Promise<Url | null> {
-    const [row] = await db.select().from(urlTable).where(eq(urlTable.slug, slug)).limit(1);
+    const [row] = await db
+      .select()
+      .from(urlTable)
+      .where(eq(urlTable.slug, slug))
+      .limit(1);
 
     return row ? serialize(row) : null;
   }

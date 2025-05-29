@@ -1,16 +1,16 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, test, vi } from "vitest";
+import { handleForm } from "~/actions/cleanuriActions";
 import { useUrlContext } from "~/contexts/UrlContext";
 import { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
-import { handleForm } from "~/serverActions/cleanuriActions";
 import { Shorten } from "../Shorten";
 
 vi.mock("~/contexts/UrlContext", () => ({
   useUrlContext: vi.fn(),
 }));
 
-vi.mock("~/serverActions/cleanuriActions", () => ({
+vi.mock("~/actions/cleanuriActions", () => ({
   handleForm: vi.fn(),
 }));
 

@@ -46,7 +46,9 @@ const update = authProcedure
     }),
   )
   .output(UrlSchema)
-  .handler(({ input, context }) => UrlService.update(input.slug, input.data, context.user.id));
+  .handler(({ input, context }) =>
+    UrlService.update(input.slug, input.data, context.user.id),
+  );
 
 const remove = authProcedure
   .route({

@@ -17,7 +17,7 @@ export const Navigation: React.FC = () => {
           to={link.href}
           activeProps={{ className: "bg-blue-100" }}
           activeOptions={{ exact: link.href === "/dashboard" }}
-          className="text-gray-700 hover:text-gray-900 flex items-center gap-4 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-blue-50"
+          className="flex items-center gap-4 rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-blue-50 hover:text-gray-900"
         >
           <link.icon />
           {link.title}

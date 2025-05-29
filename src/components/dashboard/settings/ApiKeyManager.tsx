@@ -130,10 +130,14 @@ export function ApiKeyManager() {
     navigator.clipboard.writeText(text);
     setHasCopiedKey(true);
   }
-  
+
   function handleDismissNewKey() {
     if (!hasCopiedKey) {
-      if (!confirm("Are you sure you want to close without copying the API key? You won't be able to see it again.")) {
+      if (
+        !confirm(
+          "Are you sure you want to close without copying the API key? You won't be able to see it again.",
+        )
+      ) {
         return;
       }
     }
@@ -142,11 +146,11 @@ export function ApiKeyManager() {
   }
 
   return (
-    <div className="ring-gray-900/5 mt-8 bg-white shadow-sm ring-1 sm:rounded-xl md:col-span-2">
+    <div className="mt-8 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
       <div className="px-4 py-6 sm:p-8">
         <div className="max-w-2xl">
-          <h2 className="text-gray-900 text-base font-semibold leading-7">API Keys</h2>
-          <p className="text-gray-600 mt-1 text-sm leading-6">
+          <h2 className="text-base font-semibold leading-7 text-gray-900">API Keys</h2>
+          <p className="mt-1 text-sm leading-6 text-gray-600">
             Manage API keys for programmatic access to your account.
           </p>
 
@@ -164,7 +168,7 @@ export function ApiKeyManager() {
                 value={newKeyName}
                 onChange={(e) => setNewKeyName(e.target.value)}
                 placeholder="API key name (e.g., Production App)"
-                className="text-gray-900 ring-gray-300 placeholder:text-gray-400 block w-full rounded-md border-0 px-3 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               <select
                 value={selectedExpiration ?? "null"}
@@ -173,7 +177,7 @@ export function ApiKeyManager() {
                     e.target.value === "null" ? null : Number(e.target.value),
                   )
                 }
-                className="text-gray-900 ring-gray-300 block rounded-md border-0 px-3 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               >
                 {EXPIRATION_OPTIONS.map((option) => (
                   <option key={option.label} value={option.value ?? "null"}>
@@ -202,7 +206,8 @@ export function ApiKeyManager() {
                     API Key Created Successfully
                   </h3>
                   <p className="mt-1 text-sm text-green-700">
-                    <strong>Important:</strong> Copy your API key now. For security reasons, it will not be shown again.
+                    <strong>Important:</strong> Copy your API key now. For security
+                    reasons, it will not be shown again.
                   </p>
                   <div className="mt-3 flex items-center gap-2">
                     <code className="rounded bg-green-100 px-2 py-1 text-sm text-green-800">
@@ -217,7 +222,7 @@ export function ApiKeyManager() {
                       <Copy className="h-4 w-4" />
                     </button>
                     {hasCopiedKey && (
-                      <span className="text-green-600 text-sm">Copied!</span>
+                      <span className="text-sm text-green-600">Copied!</span>
                     )}
                   </div>
                 </div>
@@ -243,28 +248,28 @@ export function ApiKeyManager() {
           {/* API keys list */}
           <div className="mt-6">
             {isLoading ? (
-              <p className="text-gray-500 text-sm">Loading API keys...</p>
+              <p className="text-sm text-gray-500">Loading API keys...</p>
             ) : apiKeys.length === 0 ? (
-              <p className="text-gray-500 text-sm">No API keys created yet.</p>
+              <p className="text-sm text-gray-500">No API keys created yet.</p>
             ) : (
               <div className="space-y-3">
                 {apiKeys.map((key) => (
                   <div
                     key={key.id}
-                    className="border-gray-200 flex items-center justify-between rounded-lg border p-4"
+                    className="flex items-center justify-between rounded-lg border border-gray-200 p-4"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <p className="text-gray-900 text-sm font-medium">
+                        <p className="text-sm font-medium text-gray-900">
                           {key.name || "Unnamed Key"}
                         </p>
                         {key.start && (
-                          <code className="text-gray-500 bg-gray-100 rounded px-2 py-0.5 text-xs">
+                          <code className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
                             {key.start}...
                           </code>
                         )}
                       </div>
-                      <p className="text-gray-500 mt-1 text-xs">
+                      <p className="mt-1 text-xs text-gray-500">
                         Created {new Date(key.createdAt).toLocaleDateString()}
                         {key.lastRequest && (
                           <>
@@ -285,7 +290,7 @@ export function ApiKeyManager() {
                     <button
                       type="button"
                       onClick={() => handleDeleteKey(key.id)}
-                      className="text-gray-400 hover:text-red-600 ml-4"
+                      className="hover:text-red-600 ml-4 text-gray-400"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
