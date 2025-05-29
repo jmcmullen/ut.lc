@@ -1,15 +1,15 @@
 import { relations } from "drizzle-orm";
 import { index, numeric, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
-import { generateShortCode } from "~/utils/shortcode";
+import { createId } from "~/utils/id";
 import { urlTable } from "../url/url.sql";
 
 export const clickTable = pgTable(
   "clicks",
   {
-    id: varchar({ length: 10 })
-      .$default(() => generateShortCode())
+    id: text()
+      .$default(() => createId("click"))
       .primaryKey(),
-    urlId: varchar({ length: 32 })
+    urlId: text()
       .references(() => urlTable.id)
       .notNull(),
     clickedAt: timestamp().defaultNow().notNull(),

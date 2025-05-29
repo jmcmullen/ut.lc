@@ -6,7 +6,7 @@ import { UrlSchema } from "~/api/url";
 
 // Server function to handle redirect
 const getRedirectUrl = createServerFn({ method: "GET" })
-  .validator((data) => UrlSchema.pick({ id: true }).parse(data))
+  .validator((data) => UrlSchema.pick({ slug: true }).parse(data))
   .handler(async ({ data }) => {
     console.log("data", JSON.stringify(data, null, 2));
     const request = getWebRequest();
@@ -16,7 +16,7 @@ const getRedirectUrl = createServerFn({ method: "GET" })
 
     const headers = request.headers;
 
-    const result = await ClickService.handleRedirect(data.id, headers);
+    const result = await ClickService.handleRedirect(data.slug, headers);
 
     if ("error" in result) {
       return { error: result.error, status: result.status };
@@ -25,14 +25,19 @@ const getRedirectUrl = createServerFn({ method: "GET" })
     return { url: result.url };
   });
 
-export const Route = createFileRoute("/$id")({
+export const Route = createFileRoute("/$")({
   beforeLoad: async ({ params, context }) => {
-    const { id } = params;
+    const slug = params._splat;
+    
+    // Only handle single segment paths (no slashes)
+    if (!slug || slug.includes('/')) {
+      return;
+    }
 
-    console.log("id", JSON.stringify({ id, context }, null, 2));
+    console.log("slug", JSON.stringify({ slug, context }, null, 2));
 
     // Get redirect URL from server
-    const result = await getRedirectUrl({ data: { id } });
+    const result = await getRedirectUrl({ data: { slug } });
 
     if ("error" in result) {
       // Redirect to home page with error

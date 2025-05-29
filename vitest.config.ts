@@ -4,10 +4,14 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   plugins: [viteTsconfigPaths()],
   test: {
-    environment: "jsdom",
-    setupFiles: ["./vitest.setup.tsx"],
     globals: true,
     css: true,
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.tsx"],
+    environmentMatchGlobs: [
+      // Use node environment for API tests
+      ["src/api/**/*.test.ts", "node"],
+    ],
   },
   resolve: {
     alias: {

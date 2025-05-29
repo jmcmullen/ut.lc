@@ -11,6 +11,13 @@ vi.mock("@tanstack/react-router", () => ({
   ),
 }));
 
+vi.mock("~/utils/auth-client", () => ({
+  useSession: vi.fn(() => ({ data: null, isPending: false })),
+  signIn: {
+    social: vi.fn(),
+  },
+}));
+
 describe("Header Component", () => {
   test("renders logo and navigation links", () => {
     render(<Header />);

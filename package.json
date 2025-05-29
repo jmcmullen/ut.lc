@@ -34,6 +34,7 @@
     "@tanstack/react-router": "^1.120.5",
     "@tanstack/react-router-devtools": "^1.120.6",
     "@tanstack/react-start": "^1.120.5",
+    "better-auth": "^1.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.43.1",
@@ -43,6 +44,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
+    "typeid-js": "^1.2.0",
     "ua-parser-js": "^2.0.3",
     "vinxi": "0.5.3",
     "zod": "^3.25.32"

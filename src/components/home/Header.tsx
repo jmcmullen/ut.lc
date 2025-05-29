@@ -3,9 +3,11 @@ import { Menu, X } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "./Button";
 
+import { signIn, useSession } from "~/utils/auth-client";
 import { Logo } from "./Logo";
 
 export const Header: React.FC = () => {
+  const session = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -58,12 +60,36 @@ export const Header: React.FC = () => {
               </nav>
               <div className="mb-6 h-px w-full bg-grayish-violet opacity-25"></div>
               <div className="flex w-full flex-col space-y-4">
-                <Button variant="secondary" fullWidth>
-                  Login
-                </Button>
-                <Button variant="primary" fullWidth>
-                  Sign Up
-                </Button>
+                {session.data?.user ? (
+                  <Button variant="secondary" fullWidth>
+                    Logout
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      variant="secondary"
+                      onClick={() =>
+                        signIn.social({
+                          provider: "google",
+                        })
+                      }
+                      fullWidth
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() =>
+                        signIn.social({
+                          provider: "google",
+                        })
+                      }
+                      fullWidth
+                    >
+                      Sign Up
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -92,11 +118,39 @@ export const Header: React.FC = () => {
               </li>
             </ul>
           </nav>
-          <div className="flex items-center space-x-6">
-            <Link to="/" className="text-grayish-violet hover:text-very-dark-violet">
-              Login
-            </Link>
-            <Button size="sm">Sign Up</Button>
+          <div className="flex items-center">
+            {session.data?.user ? (
+              <Link to="/dashboard">
+                <Button variant="secondary" type="button" fullWidth>
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Button
+                  type="button"
+                  variant="link"
+                  onClick={() =>
+                    signIn.social({
+                      provider: "google",
+                    })
+                  }
+                  className="text-grayish-violet hover:text-very-dark-violet"
+                >
+                  Login
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    signIn.social({
+                      provider: "google",
+                    })
+                  }
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

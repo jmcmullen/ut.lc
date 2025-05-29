@@ -9,6 +9,7 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-cyan text-white hover:bg-opacity-70",
         secondary: "bg-dark-violet text-white hover:bg-opacity-90",
+        link: "bg-transparent font-medium text-cyan hover:bg-opacity-70",
       },
       size: {
         sm: "py-2 px-4 text-sm",

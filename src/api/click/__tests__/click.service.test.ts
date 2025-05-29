@@ -1,11 +1,24 @@
-/**
- * @vitest-environment node
- */
 import { eq } from "drizzle-orm";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { ClickService } from "../click.service";
 
-vi.mock("~/db", () => ({
+// Mock environment variables
+process.env.DATABASE_URL = "postgresql://test:test@localhost:5432/test?sslmode=require";
+
+// Mock database modules before imports
+vi.mock("@neondatabase/serverless", () => ({
+  neon: vi.fn(() => vi.fn()),
+}));
+
+vi.mock("drizzle-orm/neon-http", () => ({
+  drizzle: vi.fn(() => ({
+    select: vi.fn(),
+    insert: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
+  })),
+}));
+
+vi.mock("~/api/db", () => ({
   db: {
     select: vi.fn(),
     insert: vi.fn(),
@@ -41,8 +54,9 @@ vi.mock("nanoid", async (importOriginal) => {
   };
 });
 
-import { db } from "~/db";
+import { db } from "~/api/db";
 import { urlTable } from "../../url/url.sql";
+import { ClickService } from "../click.service";
 import { clickTable } from "../click.sql";
 
 const mockClick = {
@@ -399,7 +413,7 @@ describe("ClickService", () => {
       const result = await ClickService.handleRedirect("url123456", headers);
 
       expect(result).toEqual({ url: "https://example.com" });
-      expect(selectMock.where).toHaveBeenCalledWith(eq(urlTable.id, "url123456"));
+      expect(selectMock.where).toHaveBeenCalledWith(eq(urlTable.slug, "url123456"));
     });
 
     test("returns 404 when URL not found", async () => {
