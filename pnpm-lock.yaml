@@ -149,7 +149,7 @@ importers:
         specifier: ^3.1.4
         version: 3.1.4(vitest@3.1.4)
       autoprefixer:
-        specifier: ^10.4.20
+        specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.3)
       dotenv-cli:
         specifier: ^8.0.0
