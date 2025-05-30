@@ -29,9 +29,9 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
 
   const form = useForm({
     defaultValues: {
-      name: user?.name || "",
-      email: user?.email || "",
-      image: user?.image || "",
+      name: user.name ?? "",
+      email: user.email ?? "",
+      image: user.image ?? "",
     },
     validators: {
       onChange: profileSchema,
@@ -46,9 +46,9 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
             email: data.value.email,
             image: data.value.image,
             currentUser: {
-              name: user?.name,
-              email: user?.email,
-              image: user?.image || undefined,
+              name: user.name,
+              email: user.email,
+              image: user.image ?? undefined,
             },
           },
         });
@@ -69,7 +69,7 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
         });
 
         // Refresh session data
-        session.refetch();
+        void session.refetch();
       } catch {
         setMessage({
           type: "error",
@@ -79,10 +79,10 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    void form.handleSubmit();
   };
 
   return (
@@ -122,11 +122,11 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter your name"
                   />
-                  {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                  {field.state.meta.errors.length > 0 && (
                     <p className="text-red-600 mt-1 text-sm">
                       {field.state.meta.errors
                         .map(
-                          (error) => (error as unknown as { message: string })?.message,
+                          (error) => (error as unknown as { message: string }).message,
                         )
                         .join(", ")}
                     </p>
@@ -153,16 +153,16 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter your email"
                   />
-                  {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                  {field.state.meta.errors.length > 0 && (
                     <p className="text-red-600 mt-1 text-sm">
                       {field.state.meta.errors
                         .map(
-                          (error) => (error as unknown as { message: string })?.message,
+                          (error) => (error as unknown as { message: string }).message,
                         )
                         .join(", ")}
                     </p>
                   )}
-                  {field.state.value !== user?.email && (
+                  {field.state.value !== user.email && (
                     <p className="mt-1 text-sm text-gray-500">
                       <span className="text-amber-600">
                         ⚠️ Changing your email will require re-verification
@@ -191,11 +191,11 @@ export function ProfileUpdateForm({ user }: ProfileUpdateFormProps) {
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="https://example.com/avatar.jpg"
                   />
-                  {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                  {field.state.meta.errors.length > 0 && (
                     <p className="text-red-600 mt-1 text-sm">
                       {field.state.meta.errors
                         .map(
-                          (error) => (error as unknown as { message: string })?.message,
+                          (error) => (error as unknown as { message: string }).message,
                         )
                         .join(", ")}
                     </p>

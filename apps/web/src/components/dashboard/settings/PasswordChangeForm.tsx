@@ -95,10 +95,10 @@ export function PasswordChangeForm() {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    void form.handleSubmit();
   };
 
   if (loading) {
@@ -156,11 +156,11 @@ export function PasswordChangeForm() {
                       className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                       placeholder="Enter current password"
                     />
-                    {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                    {field.state.meta.errors.length > 0 && (
                       <p className="text-red-600 mt-1 text-sm">
                         {field.state.meta.errors
                           .map(
-                            (error) => (error as unknown as { message: string })?.message,
+                            (error) => (error as unknown as { message: string }).message,
                           )
                           .join(", ")}
                       </p>
@@ -188,11 +188,11 @@ export function PasswordChangeForm() {
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Enter new password"
                   />
-                  {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                  {field.state.meta.errors.length > 0 && (
                     <p className="text-red-600 mt-1 text-sm">
                       {field.state.meta.errors
                         .map(
-                          (error) => (error as unknown as { message: string })?.message,
+                          (error) => (error as unknown as { message: string }).message,
                         )
                         .join(", ")}
                     </p>
@@ -219,11 +219,11 @@ export function PasswordChangeForm() {
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
                     placeholder="Confirm new password"
                   />
-                  {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                  {field.state.meta.errors.length > 0 && (
                     <p className="text-red-600 mt-1 text-sm">
                       {field.state.meta.errors
                         .map(
-                          (error) => (error as unknown as { message: string })?.message,
+                          (error) => (error as unknown as { message: string }).message,
                         )
                         .join(", ")}
                     </p>

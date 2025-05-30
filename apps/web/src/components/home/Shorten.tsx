@@ -27,10 +27,10 @@ export const Shorten = () => {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    void form.handleSubmit();
   };
 
   return (
@@ -68,10 +68,10 @@ export const Shorten = () => {
               {!field.state.meta.isValid && (
                 <p role="alert" className="mt-2 text-red">
                   {field.state.meta.errors.some(
-                    (error) => error?.message === "Please add a link",
+                    (error) => error.message === "Please add a link",
                   )
                     ? "Please add a link"
-                    : field.state.meta.errors.map((error) => error?.message).join(", ")}
+                    : field.state.meta.errors.map((error) => error.message).join(", ")}
                 </p>
               )}
             </div>

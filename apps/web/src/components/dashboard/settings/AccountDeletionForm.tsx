@@ -53,7 +53,7 @@ export function AccountDeletionForm() {
         await deleteAccount({
           data: {
             password: hasPassword ? data.value.password : undefined,
-            hasPassword: hasPassword || false,
+            hasPassword: hasPassword ?? false,
           },
         });
       } catch {
@@ -67,10 +67,10 @@ export function AccountDeletionForm() {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    form.handleSubmit();
+    void form.handleSubmit();
   };
 
   if (loading) {
@@ -134,11 +134,11 @@ export function AccountDeletionForm() {
                       className="focus:border-red-500 focus:ring-red-500 mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm sm:text-sm"
                       placeholder="Type DELETE"
                     />
-                    {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                    {field.state.meta.errors.length > 0 && (
                       <p className="text-red-600 mt-1 text-sm">
                         {field.state.meta.errors
                           .map(
-                            (error) => (error as unknown as { message: string })?.message,
+                            (error) => (error as unknown as { message: string }).message,
                           )
                           .join(", ")}
                       </p>
@@ -166,12 +166,12 @@ export function AccountDeletionForm() {
                         className="focus:border-red-500 focus:ring-red-500 mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm sm:text-sm"
                         placeholder="Enter your password"
                       />
-                      {field.state.meta.errors && field.state.meta.errors.length > 0 && (
+                      {field.state.meta.errors.length > 0 && (
                         <p className="text-red-600 mt-1 text-sm">
                           {field.state.meta.errors
                             .map(
                               (error) =>
-                                (error as unknown as { message: string })?.message,
+                                (error as unknown as { message: string }).message,
                             )
                             .join(", ")}
                         </p>

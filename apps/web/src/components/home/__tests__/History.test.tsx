@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
-import { useUrlContext } from "~/contexts/UrlContext";
-import { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
+import type { useUrlContext } from "~/contexts/UrlContext";
+import type { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
 import { History } from "../History";
 
 vi.mock("~/contexts/UrlContext", () => ({
@@ -49,7 +49,7 @@ describe("<History />", () => {
     expect(copyButtons).toHaveLength(mockUrls.length);
   });
 
-  test("calls copyUrl and changes button text when copy button is clicked", async () => {
+  test("calls copyUrl and changes button text when copy button is clicked", () => {
     render(<History />);
 
     const copyButtons = screen.getAllByRole("button", { name: /copy/i });
@@ -65,7 +65,7 @@ describe("<History />", () => {
     expect(firstCopyButton).toHaveClass("bg-dark-violet");
   });
 
-  test("reverts button text after 3 seconds", async () => {
+  test("reverts button text after 3 seconds", () => {
     render(<History />);
 
     const copyButtons = screen.getAllByRole("button", { name: /copy/i });
@@ -86,7 +86,7 @@ describe("<History />", () => {
     expect(firstCopyButton).toHaveClass("bg-cyan");
   });
 
-  test("handles multiple copy button clicks correctly", async () => {
+  test("handles multiple copy button clicks correctly", () => {
     render(<History />);
 
     const copyButtons = screen.getAllByRole("button", { name: /copy/i });

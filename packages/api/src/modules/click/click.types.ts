@@ -4,7 +4,10 @@ export const ClickSchema = z.object({
   id: z.string().max(10).describe("Unique identifier for the click"),
   urlId: z.string().min(4).max(32).describe("ID of the URL that was clicked"),
   clickedAt: z.date().describe("Timestamp when the click occurred"),
-  userAgent: z.string().nullish().describe("User agent string from the browser"),
+  userAgent: z
+    .string()
+    .nullish()
+    .describe("User agent string from the browser"),
   browser: z.string().max(50).nullish().describe("Browser name"),
   browserVersion: z.string().max(20).nullish().describe("Browser version"),
   os: z.string().max(50).nullish().describe("Operating system"),
@@ -15,7 +18,11 @@ export const ClickSchema = z.object({
     .max(64)
     .nullish()
     .describe("Hashed IP address for privacy-safe unique visitor counting"),
-  country: z.string().length(2).nullish().describe("Country code (ISO 3166-1 alpha-2)"),
+  country: z
+    .string()
+    .length(2)
+    .nullish()
+    .describe("Country code (ISO 3166-1 alpha-2)"),
   region: z.string().max(255).nullish().describe("Region/state name"),
   city: z.string().max(255).nullish().describe("City name"),
   latitude: z.string().nullish().describe("Latitude coordinate"),
@@ -41,7 +48,9 @@ export const ClickInfoSchema = ClickSchema.extend({
 
 export const ClickStatsSchema = z.object({
   totalClicks: z.number().describe("Total number of clicks"),
-  uniqueVisitors: z.number().describe("Number of unique visitors (by hashed IP)"),
+  uniqueVisitors: z
+    .number()
+    .describe("Number of unique visitors (by hashed IP)"),
   topCountries: z
     .array(
       z.object({

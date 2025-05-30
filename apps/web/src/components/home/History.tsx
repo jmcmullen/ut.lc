@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useUrlContext } from "~/contexts/UrlContext";
-import { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
+import type { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
 import { cn } from "~/utils/cn";
 import { Button } from "./Button";
 
@@ -20,8 +20,10 @@ export const History = () => {
   const handleCopy = (url: CleanuriOkResponse) => {
     copyUrl(url);
 
-    if (timeoutRefs.current[url.resultUrl]) {
-      clearTimeout(timeoutRefs.current[url.resultUrl]);
+    const existingTimeout = timeoutRefs.current[url.resultUrl];
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (existingTimeout !== undefined) {
+      clearTimeout(existingTimeout);
     }
 
     setCopiedUrls((prev) => new Set(prev).add(url.resultUrl));

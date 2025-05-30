@@ -64,7 +64,7 @@ export const updatePassword = createServerFn({ method: "POST" })
       // For users changing existing password
       await auth.api.changePassword({
         body: {
-          currentPassword: data.currentPassword!,
+          currentPassword: data.currentPassword ?? '',
           newPassword: data.newPassword,
         },
         headers: new Headers(headers as HeadersInit),
@@ -125,7 +125,7 @@ export const updateProfile = createServerFn({ method: "POST" })
       headers: new Headers(headers as HeadersInit),
     });
 
-    return { success: true, emailChanged: updateBody.email !== undefined };
+    return { success: true, emailChanged: 'email' in updateBody };
   });
 
 /**
@@ -160,5 +160,5 @@ export const deleteAccount = createServerFn({ method: "POST" })
     }
 
     // Redirect to home page after deletion
-    throw redirect({ to: "/" });
+    return redirect({ to: "/" });
   });

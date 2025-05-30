@@ -36,7 +36,7 @@ export function ApiKeyManager() {
 
   // Load API keys on mount
   useEffect(() => {
-    loadApiKeys();
+    void loadApiKeys();
   }, []);
 
   async function loadApiKeys() {
@@ -47,10 +47,11 @@ export function ApiKeyManager() {
       const { data, error } = await authClient.apiKey.list();
 
       if (error) {
-        throw new Error(error.message || "Failed to load API keys");
+        throw new Error(error.message ?? "Failed to load API keys");
       }
 
-      setApiKeys(data || []);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      setApiKeys(data ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load API keys");
     } finally {
@@ -65,7 +66,7 @@ export function ApiKeyManager() {
       setIsCreating(true);
       setError(null);
 
-      type CreateOptions = {
+      interface CreateOptions {
         name: string;
         prefix: string;
         expiresIn?: number;
@@ -84,9 +85,10 @@ export function ApiKeyManager() {
       const { data, error } = await authClient.apiKey.create(createOptions);
 
       if (error) {
-        throw new Error(error.message || "Failed to create API key");
+        throw new Error(error.message ?? "Failed to create API key");
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (data?.key) {
         setShowNewKey(data.key);
         setNewKeyName("");
@@ -117,7 +119,7 @@ export function ApiKeyManager() {
       });
 
       if (error) {
-        throw new Error(error.message || "Failed to delete API key");
+        throw new Error(error.message ?? "Failed to delete API key");
       }
 
       await loadApiKeys();
@@ -127,7 +129,7 @@ export function ApiKeyManager() {
   }
 
   function copyToClipboard(text: string) {
-    navigator.clipboard.writeText(text);
+    void navigator.clipboard.writeText(text);
     setHasCopiedKey(true);
   }
 
@@ -261,7 +263,7 @@ export function ApiKeyManager() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-medium text-gray-900">
-                          {key.name || "Unnamed Key"}
+                          {key.name ?? "Unnamed Key"}
                         </p>
                         {key.start && (
                           <code className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-500">

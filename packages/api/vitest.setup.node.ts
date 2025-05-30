@@ -5,7 +5,6 @@
 import { vi } from "vitest";
 
 // Mock environment variables for tests
-// eslint-disable-next-line no-restricted-properties
 process.env.DATABASE_URL =
   "postgresql://test:test@localhost:5432/test?sslmode=require";
 

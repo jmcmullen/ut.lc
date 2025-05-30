@@ -10,23 +10,23 @@ export default [
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
-        parser: tseslint.parser,
-        parserOptions: {
-          projectService: true,
-          tsconfigRootDir: import.meta.dirname,
-        },
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
-      extends: [
-        js.configs.recommended,
-        ...tseslint.configs.recommended,
-        eslintConfigPrettier,
-        ...pluginRouter.configs["flat/recommended"],
-        reactHooks.configs.recommended,
-        react.configs["recommended-type-checked"],
-      ],
-      rules: {
-        "react-hooks/react-compiler": "warn",
-        "@typescript-eslint/no-namespace": "off",
-      },
+    },
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      eslintConfigPrettier,
+      ...pluginRouter.configs["flat/recommended"],
+      reactHooks.configs.recommended,
+      react.configs["recommended-type-checked"],
+    ],
+    rules: {
+      "react-hooks/react-compiler": "warn",
+      "@typescript-eslint/no-namespace": "off",
+    },
   },
 ];

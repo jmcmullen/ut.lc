@@ -10,7 +10,8 @@
     "start": "pnpm with-env vinxi start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {

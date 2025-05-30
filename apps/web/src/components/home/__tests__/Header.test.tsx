@@ -35,8 +35,7 @@ describe("Header Component", () => {
   test("hamburger menu toggles mobile navigation", () => {
     render(<Header />);
 
-    const mobileMenuButton =
-      screen.getByLabelText(/open menu/i) || screen.getByLabelText(/close menu/i);
+    const mobileMenuButton = screen.getByLabelText(/open menu/i);
     expect(mobileMenuButton).toBeInTheDocument();
 
     expect(screen.queryByTestId("mobile-nav")).not.toBeInTheDocument();
@@ -53,7 +52,7 @@ describe("Header Component", () => {
   test("responsive design shows/hides elements correctly", () => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
-      value: vi.fn().mockImplementation((query) => ({
+      value: vi.fn().mockImplementation((query: string) => ({
         matches: query.includes("(min-width: 1440px)"),
         media: query,
         onchange: null,
@@ -80,11 +79,10 @@ describe("Header Component", () => {
 
     rerender(<Header />);
 
-    const mobileMenuButton =
-      screen.getByLabelText(/open menu/i) || screen.getByLabelText(/close menu/i);
+    const mobileMenuButton = screen.getByLabelText(/open menu/i);
     expect(mobileMenuButton).toBeInTheDocument();
 
-    window.matchMedia = vi.fn().mockImplementation((query) => ({
+    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
       matches: query.includes("(min-width: 1440px)"),
       media: query,
       onchange: null,

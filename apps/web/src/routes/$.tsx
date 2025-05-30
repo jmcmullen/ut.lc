@@ -26,7 +26,7 @@ const getRedirectUrl = createServerFn({ method: "GET" })
   });
 
 export const Route = createFileRoute("/$")({
-  beforeLoad: async ({ params, context }) => {
+  beforeLoad: async ({ params }: { params: { _splat: string } }) => {
     const slug = params._splat;
 
     // Only handle single segment paths (no slashes)
@@ -34,14 +34,12 @@ export const Route = createFileRoute("/$")({
       return;
     }
 
-    console.log("slug", JSON.stringify({ slug, context }, null, 2));
-
     // Get redirect URL from server
     const result = await getRedirectUrl({ data: { slug } });
 
     if ("error" in result) {
       // Redirect to home page with error
-      throw redirect({
+      redirect({
         to: "/",
         search: {
           error: result.error,
@@ -50,7 +48,7 @@ export const Route = createFileRoute("/$")({
     }
 
     // Perform the actual redirect
-    throw redirect({
+    redirect({
       href: result.url,
       reloadDocument: true, // This ensures a full page redirect
     });

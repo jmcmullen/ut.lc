@@ -9,13 +9,14 @@ import type {
 import type { ZodType, ZodTypeDef } from "zod";
 import * as React from "react";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
-import { cn } from "@utlc/ui";
 import { Slot } from "radix-ui";
 import {
   useForm as __useForm,
   Controller,
   useFormContext,
 } from "react-hook-form";
+
+import { cn } from "@utlc/ui";
 
 import { Label } from "./label";
 
