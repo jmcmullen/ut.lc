@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Boost } from "~/components/ui/Boost";
-import { Features } from "~/components/ui/Features";
-import { Footer } from "~/components/ui/Footer";
-import { Header } from "~/components/ui/Header";
-import { Hero } from "~/components/ui/Hero";
-import { History } from "~/components/ui/History";
-import { Shorten } from "~/components/ui/Shorten";
+import { Boost } from "~/components/home/Boost";
+import { Features } from "~/components/home/Features";
+import { Footer } from "~/components/home/Footer";
+import { Header } from "~/components/home/Header";
+import { Hero } from "~/components/home/Hero";
+import { History } from "~/components/home/History";
+import { Shorten } from "~/components/home/Shorten";
 import { UrlProvider } from "~/contexts/UrlContext";
 
 export const Route = createFileRoute("/")({

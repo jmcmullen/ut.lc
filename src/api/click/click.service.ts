@@ -1,7 +1,7 @@
 import { and, count, desc, eq, gte, isNotNull, lte, sql } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { createHash } from "node:crypto";
-import { db } from "~/db";
+import { db } from "~/api/db";
 import {
   extractReferrerDomain,
   getClientIp,
@@ -233,15 +233,15 @@ export namespace ClickService {
    * Handle URL redirect and track analytics
    */
   export async function handleRedirect(
-    shortCode: string,
+    slug: string,
     headers: Headers,
   ): Promise<{ url: string } | { error: string; status: number }> {
     try {
-      // Find the URL
+      // Find the URL by slug
       const [urlRecord] = await db
         .select()
         .from(urlTable)
-        .where(eq(urlTable.id, shortCode))
+        .where(eq(urlTable.slug, slug))
         .limit(1);
 
       if (!urlRecord) {

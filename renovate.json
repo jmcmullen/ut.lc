@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     ":disableRateLimiting",
-    ":dependencyDashboard",
+    ":disableDependencyDashboard",
     ":semanticCommits",
     ":enablePreCommit",
     "group:allNonMajor",

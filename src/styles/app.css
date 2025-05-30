@@ -10,10 +10,6 @@
     font-family: "Poppins", sans-serif;
   }
 
-  * {
-    @apply border-gray;
-  }
-
   html,
   body {
     @apply bg-white text-base font-medium text-very-dark-violet;
