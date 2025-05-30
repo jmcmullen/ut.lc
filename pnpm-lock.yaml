@@ -116,7 +116,7 @@ importers:
         version: 3.25.42
     devDependencies:
       '@swc/core':
-        specifier: ^1.11.24
+        specifier: ^1.11.29
         version: 1.11.29
       '@types/node':
         specifier: ^22.15.3

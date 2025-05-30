@@ -32,7 +32,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.24",
+    "@swc/core": "^1.11.29",
     "@types/node": "^22.15.3",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
