@@ -1,44 +1,51 @@
-# URL Shortener App
+# Ultra Tiny Link Creator
 
-A full-stack URL shortening web application built with TanStack Router featuring a complete REST API, analytics tracking, and database persistence.
+A high-performance URL shortening service built as a modern monorepo, featuring analytics tracking, REST API, and a responsive web interface.
 
 ## Features
 
-### Core URL Shortening
+### 🔗 URL Shortening
 
-- Create shortened URLs with automatic 7-character code generation
-- Custom short codes support (4-32 characters) with validation
+- Automatic 7-character code generation with smart character set (excludes confusing characters)
+- Custom short codes support (4-32 characters)
 - URL expiration dates and active/inactive status management
-- Smart character set (excludes confusing characters like 0, O, I, l)
 - CRUD operations for URL management
 
-### Analytics & Tracking
+### 📊 Analytics & Tracking
 
 - Comprehensive click analytics with privacy-safe hashed IP storage
 - Geographic tracking (country, region, city coordinates)
 - Device and browser analytics (user agent, OS, device type)
 - Referrer tracking and domain analysis
 - Unique visitor counting and statistical reporting
-- Real-time click tracking on URL redirects
 
-### REST API
+### 🚀 REST API
 
 - Complete RESTful API with OpenAPI documentation
 - Type-safe endpoints using ORPC framework
 - Paginated responses for efficient data browsing
 - Input validation with detailed error messages
-- Comprehensive analytics endpoints
 
-### Frontend Features
+### 💻 Modern Tech Stack
 
-- Responsive design for all device sizes
-- Copy shortened URLs to clipboard in a single click
-- Form validation with error messaging
-- Real-time URL shortening interface
+- **Frontend**: TanStack Router, React 19, TypeScript, Tailwind CSS
+- **Backend**: Node.js, ORPC, Drizzle ORM, PostgreSQL
+- **Monorepo**: Turborepo, pnpm workspaces
+- **Testing**: Vitest, ESLint, Prettier
 
-### Database & Infrastructure
+## Project Structure
 
-- PostgreSQL database with Drizzle ORM
+```
+├── apps/
+│   └── web/                 # TanStack Start web application
+├── packages/               # Shared packages (future expansion)
+├── tooling/               # Shared development tooling
+│   ├── eslint/           # ESLint configurations
+│   ├── prettier/         # Prettier configuration
+│   ├── tailwind/         # Tailwind CSS configurations
+│   └── typescript/       # TypeScript configurations
+└── turbo/                # Turborepo configuration
+```
 
 ## Getting Started
 
@@ -48,19 +55,20 @@ A full-stack URL shortening web application built with TanStack Router featuring
 - PostgreSQL database
 - pnpm package manager
 
-### Setup
+### Installation
 
 1. **Clone and install dependencies:**
 
-```sh
+```bash
 git clone <repository-url>
-cd terem-url-test
+cd ultra-tiny-link-creator
 pnpm install
 ```
 
-2. **Environment configuration:**
+2. **Configure environment:**
 
-```sh
+```bash
+cd apps/web
 cp .env.example .env
 ```
 
@@ -68,22 +76,48 @@ Configure your `DATABASE_URL` and other environment variables.
 
 3. **Database setup:**
 
-```sh
+```bash
 # Apply migrations
-pnpm db:migrate
+pnpm --filter web db:migrate
 ```
 
-4. **Start development server:**
+4. **Start development:**
 
-```sh
+```bash
 pnpm dev
 ```
 
-This starts the app in development mode, rebuilding assets on file changes.
+This starts all apps in development mode with hot reloading.
 
-### API Endpoints
+## Development
 
-The application provides REST API endpoints:
+### Available Commands
+
+```bash
+# Development
+pnpm dev              # Start all apps in development mode
+pnpm build            # Build all apps
+pnpm test             # Run tests across the monorepo
+pnpm lint             # Lint all packages
+pnpm format           # Format code with Prettier
+
+# App-specific commands (from root)
+pnpm --filter web dev         # Run only the web app
+pnpm --filter web test        # Test only the web app
+pnpm --filter web db:migrate  # Run database migrations
+```
+
+### Adding New Packages
+
+```bash
+pnpm turbo gen init
+```
+
+This will scaffold a new package with all necessary configurations.
+
+## API Documentation
+
+The web application provides comprehensive REST API endpoints:
 
 - `GET /api/v1/url` - List all URLs with pagination
 - `POST /api/v1/url` - Create a new shortened URL
@@ -92,46 +126,15 @@ The application provides REST API endpoints:
 - `GET /api/v1/click` - List click analytics
 - `GET /api/v1/click/stats/{urlId}` - Get detailed analytics for a URL
 
-## Building for Production
+## Production Deployment
 
-```sh
+### Building for Production
+
+```bash
 pnpm build
-pnpm start
+pnpm --filter web start
 ```
 
-## Testing
+## License
 
-```sh
-# Run all tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run linting
-pnpm lint
-```
-
-## Technologies Used
-
-### Frontend
-
-- **TanStack Router** - Type-safe routing
-- **TanStack Start** - Full-stack React framework
-- **TypeScript** - Type safety and developer experience
-- **Tailwind CSS** - Utility-first styling
-- **Zod** - Runtime type validation
-
-### Backend & API
-
-- **oRPC** - Type-safe RPC framework with OpenAPI support
-- **Drizzle ORM** - Type-safe database operations
-- **PostgreSQL** - Primary database
-- **Node.js** - Runtime environment
-
-### Development & Testing
-
-- **Vitest** - Unit testing framework
-- **ESLint & Prettier** - Code quality and formatting
-- **GitHub Actions** - CI/CD pipeline
-- **Drizzle Kit** - Database migration management
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

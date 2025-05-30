@@ -1,0 +1,37 @@
+{
+  "name": "@utlc/vitest-config",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js",
+    "./workspace": "./workspace.js"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jsdom": "^26.1.0",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "vite": "^6.0.7",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "devDependencies": {
+    "@utlc/prettier-config": "workspace:*",
+    "@utlc/tsconfig": "workspace:*",
+    "prettier": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "^3.1.4"
+  },
+  "prettier": "@utlc/prettier-config"
+}
