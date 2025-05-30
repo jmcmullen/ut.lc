@@ -1,0 +1,40 @@
+{
+  "name": "@utlc/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@auth/core": "catalog:",
+    "@auth/drizzle-adapter": "catalog:",
+    "@t3-oss/env-nextjs": "^0.13.4",
+    "@utlc/db": "workspace:*",
+    "@utlc/utils": "workspace:*",
+    "better-auth": "^1.2.8",
+    "next": "^15.3.1",
+    "next-auth": "catalog:",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:react19",
+    "@utlc/eslint-config": "workspace:*",
+    "@utlc/prettier-config": "workspace:*",
+    "@utlc/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  },
+  "prettier": "@utlc/prettier-config"
+}
