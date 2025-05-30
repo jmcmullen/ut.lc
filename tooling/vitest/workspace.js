@@ -11,7 +11,10 @@ import { defineConfig } from "vitest/config";
  * @returns {import('vitest/config').UserConfig}
  */
 export function createWorkspaceConfig({
-  browserIncludes = ["src/components/**/*.test.{ts,tsx}", "src/contexts/**/*.test.{ts,tsx}"],
+  browserIncludes = [
+    "src/components/**/*.test.{ts,tsx}",
+    "src/contexts/**/*.test.{ts,tsx}",
+  ],
   nodeIncludes = ["src/api/**/*.test.{ts,tsx}"],
   browserSetupFile = "./vitest.setup.tsx",
   nodeSetupFile = "./vitest.setup.node.ts",
