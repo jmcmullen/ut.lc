@@ -160,5 +160,5 @@ export const deleteAccount = createServerFn({ method: "POST" })
     }
 
     // Redirect to home page after deletion
-    return redirect({ to: "/" });
+    throw redirect({ to: "/" });
   });
