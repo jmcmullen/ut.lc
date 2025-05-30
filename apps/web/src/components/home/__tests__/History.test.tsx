@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
-import type { useUrlContext } from "~/contexts/UrlContext";
 import type { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
+import { useUrlContext } from "~/contexts/UrlContext";
 import { History } from "../History";
 
 vi.mock("~/contexts/UrlContext", () => ({

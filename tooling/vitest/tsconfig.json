@@ -1,0 +1,7 @@
+{
+  "extends": "@utlc/tsconfig/internal-package.json",
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "include": ["**/*.js", "**/*.ts", "**/*.tsx"]
+}

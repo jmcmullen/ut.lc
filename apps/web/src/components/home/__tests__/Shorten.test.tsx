@@ -1,9 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { handleForm } from "~/actions/cleanuriActions";
-import type { useUrlContext } from "~/contexts/UrlContext";
+
 import type { CleanuriOkResponse } from "~/schemas/cleanuriSchemas";
+import { handleForm } from "~/actions/cleanuriActions";
+import { useUrlContext } from "~/contexts/UrlContext";
 import { Shorten } from "../Shorten";
 
 vi.mock("~/contexts/UrlContext", () => ({
@@ -35,8 +36,12 @@ describe("<Shorten />", () => {
   test("renders the form correctly", () => {
     render(<Shorten />);
 
-    expect(screen.getByPlaceholderText("Shorten a link here...")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /shorten it!/i })).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("Shorten a link here..."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /shorten it!/i }),
+    ).toBeInTheDocument();
   });
 
   test("submits form with valid URL", async () => {
