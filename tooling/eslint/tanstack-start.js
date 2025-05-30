@@ -26,6 +26,7 @@ export default [
     rules: {
       "react-hooks/react-compiler": "warn",
       "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/only-throw-error": "off",
     },
   },
 ];
