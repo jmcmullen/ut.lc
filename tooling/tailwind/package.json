@@ -20,7 +20,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@types/node": "^22.15.31",
+    "@types/node": "^22.15.32",
     "@utlc/eslint-config": "workspace:*",
     "@utlc/prettier-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
