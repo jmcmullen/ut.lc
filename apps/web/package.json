@@ -42,7 +42,7 @@
     "@utlc/tailwind-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
     "@utlc/vitest-config": "workspace:*",
-    "@vitest/ui": "^3.1.4",
+    "@vitest/ui": "^3.2.4",
     "autoprefixer": "^10.4.21",
     "dotenv-cli": "^8.0.0",
     "eslint": "catalog:",
@@ -54,6 +54,6 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   }
 }

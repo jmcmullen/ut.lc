@@ -31,7 +31,7 @@
     "@utlc/tsconfig": "workspace:*",
     "prettier": "catalog:",
     "typescript": "catalog:",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   },
   "prettier": "@utlc/prettier-config"
 }
