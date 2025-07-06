@@ -42,7 +42,7 @@
     "@utlc/prettier-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
     "dotenv-cli": "^8.0.0",
-    "drizzle-kit": "^0.31.1",
+    "drizzle-kit": "^0.31.4",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
