@@ -25,14 +25,14 @@
     "@utlc/db": "workspace:*",
     "@utlc/ui": "workspace:*",
     "@utlc/utils": "workspace:*",
-    "lucide-react": "^0.511.0",
+    "lucide-react": "^0.525.0",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "vinxi": "0.5.3",
+    "vinxi": "0.5.8",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.24",
+    "@swc/core": "^1.13.0",
     "@types/node": "^22.16.3",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
