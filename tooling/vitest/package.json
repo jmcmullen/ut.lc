@@ -17,13 +17,13 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.7.0",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "identity-obj-proxy": "^3.0.0",
     "jsdom": "^26.1.0",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "vite": "^6.0.7",
+    "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
