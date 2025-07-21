@@ -33,9 +33,9 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@orpc/openapi": "^1.6.8",
-    "@orpc/server": "^1.6.8",
-    "@orpc/zod": "^1.6.8",
+    "@orpc/openapi": "^1.7.4",
+    "@orpc/server": "^1.7.4",
+    "@orpc/zod": "^1.7.4",
     "@trpc/server": "catalog:",
     "@utlc/auth": "workspace:*",
     "@utlc/db": "workspace:*",
