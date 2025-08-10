@@ -33,7 +33,7 @@
     "@neondatabase/serverless": "^1.0.0",
     "@utlc/utils": "workspace:*",
     "drizzle-orm": "^0.44.4",
-    "drizzle-zod": "^0.8.2",
+    "drizzle-zod": "^0.8.3",
     "zod": "catalog:"
   },
   "devDependencies": {
