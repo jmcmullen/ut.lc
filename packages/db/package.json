@@ -37,7 +37,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/node": "^22.18.1",
     "@utlc/eslint-config": "workspace:*",
     "@utlc/prettier-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
