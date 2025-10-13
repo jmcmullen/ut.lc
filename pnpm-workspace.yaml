@@ -4,7 +4,7 @@ packages:
   - tooling/*
 catalog:
   '@auth/core': 0.37.2
-  '@auth/drizzle-adapter': ~1.10.0
+  '@auth/drizzle-adapter': ~1.11.0
   next-auth: 5.0.0-beta.25
   eslint: ^9.36.0
   prettier: ^3.6.2
