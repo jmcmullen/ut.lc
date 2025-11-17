@@ -19,8 +19,8 @@ catalogs:
   react19:
     react: 19.2.0
     react-dom: 19.2.0
-    '@types/react': ^19.2.2
-    '@types/react-dom': ^19.2.2
+    '@types/react': ^19.2.5
+    '@types/react-dom': ^19.2.3
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
