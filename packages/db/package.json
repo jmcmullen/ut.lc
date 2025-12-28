@@ -32,7 +32,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
     "@utlc/utils": "workspace:*",
-    "drizzle-orm": "^0.44.7",
+    "drizzle-orm": "^0.45.1",
     "drizzle-zod": "^0.8.3",
     "zod": "catalog:"
   },
@@ -42,7 +42,7 @@
     "@utlc/prettier-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
     "dotenv-cli": "^11.0.0",
-    "drizzle-kit": "^0.31.7",
+    "drizzle-kit": "^0.31.8",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
