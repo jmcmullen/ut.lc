@@ -21,7 +21,7 @@
     "@utlc/db": "workspace:*",
     "@utlc/utils": "workspace:*",
     "better-auth": "^1.2.8",
-    "next": "^15.3.1",
+    "next": "^16.1.3",
     "next-auth": "catalog:",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
