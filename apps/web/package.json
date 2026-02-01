@@ -43,7 +43,7 @@
     "@utlc/tsconfig": "workspace:*",
     "@utlc/vitest-config": "workspace:*",
     "@vitest/ui": "^3.2.4",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "^10.4.24",
     "dotenv-cli": "^11.0.0",
     "eslint": "catalog:",
     "jiti": "^2.4.2",
