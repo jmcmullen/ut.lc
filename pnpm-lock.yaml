@@ -179,8 +179,8 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
       vite-tsconfig-paths:
-        specifier: ^5.1.4
-        version: 5.1.4(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0))
+        specifier: ^6.1.0
+        version: 6.1.0(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0))
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.10.12)(@vitest/ui@3.2.4)(jiti@2.4.2)(jsdom@28.0.0(@noble/hashes@1.8.0))(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0)
@@ -587,8 +587,8 @@ importers:
         specifier: ^6.0.7
         version: 6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0)
       vite-tsconfig-paths:
-        specifier: ^5.1.4
-        version: 5.1.4(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0))
+        specifier: ^6.1.0
+        version: 6.1.0(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0))
     devDependencies:
       '@utlc/prettier-config':
         specifier: workspace:*
@@ -8044,13 +8044,10 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
-  vite-tsconfig-paths@5.1.4:
-    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
+  vite-tsconfig-paths@6.1.0:
+    resolution: {integrity: sha512-kpd3sY9glHIDaq4V/Tlc1Y8WaKtutoc3B525GHxEVKWX42FKfQsXvjFOemu1I8VIN8pNbrMLWVTbW79JaRUxKg==}
     peerDependencies:
       vite: '*'
-    peerDependenciesMeta:
-      vite:
-        optional: true
 
   vite@6.1.4:
     resolution: {integrity: sha512-VzONrF/qqEg/JBwHXBJdVSmBZBhwiPGinyUb0SQLByqQwi6o8UvX5TWLkpvkq3tvN8Cr273ieZDt36CGwWRMvA==}
@@ -16691,12 +16688,11 @@ snapshots:
       - tsx
       - yaml
 
-  vite-tsconfig-paths@5.1.4(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0)):
+  vite-tsconfig-paths@6.1.0(typescript@5.9.3)(vite@6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.9.3)
-    optionalDependencies:
       vite: 6.3.5(@types/node@24.10.12)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(tsx@4.19.4)(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
