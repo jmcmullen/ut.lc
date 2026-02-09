@@ -24,7 +24,7 @@
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "vite": "^6.0.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.1.0"
   },
   "devDependencies": {
     "@utlc/prettier-config": "workspace:*",
