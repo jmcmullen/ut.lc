@@ -30,7 +30,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.0",
+    "@neondatabase/serverless": "^1.2.0",
     "@utlc/utils": "workspace:*",
     "drizzle-orm": "^0.45.1",
     "drizzle-zod": "^0.8.3",
@@ -41,7 +41,7 @@
     "@utlc/eslint-config": "workspace:*",
     "@utlc/prettier-config": "workspace:*",
     "@utlc/tsconfig": "workspace:*",
-    "dotenv-cli": "^11.0.0",
+    "dotenv-cli": "^11.1.0",
     "drizzle-kit": "^0.31.9",
     "eslint": "catalog:",
     "prettier": "catalog:",
